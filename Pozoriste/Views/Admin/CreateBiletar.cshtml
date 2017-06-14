@@ -1,0 +1,63 @@
+﻿@model Pozoriste.Models.Biletar
+
+@{
+    ViewBag.Title = "CreateBiletar";
+}
+
+<h2>CreateBiletar</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Biletar</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ID_korisnika, "Korisnicko ime", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model=>model.ID_korisnika)
+                @Html.ValidationMessageFor(model => model.ID_korisnika)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Korisnik.Sifra, "Sifra", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model=>model.Korisnik.Sifra)
+                @Html.ValidationMessageFor(model => model.Korisnik.Sifra)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Korisnik.Ime, "Ime", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Korisnik.Ime)
+                @Html.ValidationMessageFor(model => model.Korisnik.Ime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Korisnik.Prezime, "Prezime", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Korisnik.Prezime)
+                @Html.ValidationMessageFor(model => model.Korisnik.Prezime)
+            </div>
+        </div>
+
+        @Html.HiddenFor(model=>model.datum_zaposlenja)
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

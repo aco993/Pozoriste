@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="10849cef37ca4f1aab629e31a114a3a4" Name="Diagram1">
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Administrator" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Biletar" Width="1.5" PointX="6" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Cjenovnik" Width="1.5" PointX="7.5" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Gledalac" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Glumac" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Izvedba" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Korisnik" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Organizator" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Predstava" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Recenzija" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Red" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Reditelj" Width="1.5" PointX="5.25" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Repertoar" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Rezervacija" Width="1.5" PointX="10.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Sala" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Sjediste" Width="1.5" PointX="7.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Zanr" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Zona" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaPozoriste2Model.Cijena_zone" Width="1.5" PointX="9.75" PointY="13.125" IsExpanded="true" />
+        <AssociationConnector Association="bazaPozoriste2Model.Administrator_Korisnik_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Administrator_Korisnik_FKv1" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Biletar_Korisnik_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Biletar_Korisnik_FKv1" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Cijena_zone_Cjenovnik_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Cjenovnik_Izvedba_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Gledalac_Korisnik_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Gledalac_Korisnik_FKv1" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Recenzija_Gledalac_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Rezervacija_Gledalac_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Izvedba_Predstava_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Izvedba_Repertoar_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Izvedba_Sala_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Rezervacija_Izvedba_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Predstava_Organizator_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Predstava_Zanr_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Recenzija_Predstava_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Red_Zona_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Sjediste_Red_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Rezervacija_Sjediste_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Zona_Sala_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Cijena_zone_Zona_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.glumci_u_predstavi" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.Karta" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaPozoriste2Model.reditelji_predstave" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

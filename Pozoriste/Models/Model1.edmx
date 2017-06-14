@@ -1,0 +1,1593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bazaPozoriste2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Biletar">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="datum_zaposlenja" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cijena_zone">
+          <Key>
+            <PropertyRef Name="Zona_ID_zone" />
+            <PropertyRef Name="Zona_Sala_ID_sale" />
+            <PropertyRef Name="Cjenovnik_id_cjenovnika" />
+          </Key>
+          <Property Name="Cijena" Type="int" Nullable="false" />
+          <Property Name="Zona_ID_zone" Type="int" Nullable="false" />
+          <Property Name="Zona_Sala_ID_sale" Type="int" Nullable="false" />
+          <Property Name="Cjenovnik_id_cjenovnika" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cjenovnik">
+          <Key>
+            <PropertyRef Name="id_cjenovnika" />
+          </Key>
+          <Property Name="id_cjenovnika" Type="int" Nullable="false" />
+          <Property Name="pocetak_vazenja" Type="date" Nullable="false" />
+          <Property Name="kraj_vazenja" Type="date" Nullable="false" />
+          <Property Name="Izvedba_ID_izvedbe" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gledalac">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Datum_registracije" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Glumac">
+          <Key>
+            <PropertyRef Name="ID_glumca" />
+          </Key>
+          <Property Name="ID_glumca" Type="int" Nullable="false" />
+          <Property Name="Ime_glumca" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Prezime_glumca" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="glumci_u_predstavi">
+          <Key>
+            <PropertyRef Name="Predstava_ID_Predstave" />
+            <PropertyRef Name="Glumac_ID_glumca" />
+          </Key>
+          <Property Name="Predstava_ID_Predstave" Type="int" Nullable="false" />
+          <Property Name="Glumac_ID_glumca" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Izvedba">
+          <Key>
+            <PropertyRef Name="ID_izvedbe" />
+          </Key>
+          <Property Name="ID_izvedbe" Type="int" Nullable="false" />
+          <Property Name="Vrijeme_izvodjenja" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Sala_ID_sale" Type="int" Nullable="false" />
+          <Property Name="Predstava_ID_Predstave" Type="int" Nullable="false" />
+          <Property Name="Repertoar_Datum" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Karta">
+          <Key>
+            <PropertyRef Name="Izvedba_ID_izvedbe" />
+            <PropertyRef Name="Sjediste_ID_sjedista" />
+            <PropertyRef Name="Sjediste_Red_ID_reda" />
+            <PropertyRef Name="Sjediste_Red_Zona_ID_zone" />
+            <PropertyRef Name="Sjediste_Red_Zona_Sala_ID_sale" />
+          </Key>
+          <Property Name="Izvedba_ID_izvedbe" Type="int" Nullable="false" />
+          <Property Name="Sjediste_ID_sjedista" Type="int" Nullable="false" />
+          <Property Name="Sjediste_Red_ID_reda" Type="int" Nullable="false" />
+          <Property Name="Sjediste_Red_Zona_ID_zone" Type="int" Nullable="false" />
+          <Property Name="Sjediste_Red_Zona_Sala_ID_sale" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Ime" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Prezime" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Sifra" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Organizator">
+          <Key>
+            <PropertyRef Name="ID_organizatora" />
+          </Key>
+          <Property Name="ID_organizatora" Type="int" Nullable="false" />
+          <Property Name="Naziv_organizatora" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Predstava">
+          <Key>
+            <PropertyRef Name="ID_Predstave" />
+          </Key>
+          <Property Name="ID_Predstave" Type="int" Nullable="false" />
+          <Property Name="Naziv_Predstave" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duzina_trajanja" Type="int" Nullable="false" />
+          <Property Name="Opis_predstave" Type="varchar" MaxLength="200" />
+          <Property Name="Organizator_ID_organizatora" Type="int" Nullable="false" />
+          <Property Name="Zanr_ID_zanra" Type="int" Nullable="false" />
+          <Property Name="slika" Type="image" />
+        </EntityType>
+        <EntityType Name="Recenzija">
+          <Key>
+            <PropertyRef Name="Gledalac_ID_korisnika" />
+            <PropertyRef Name="Predstava_ID_Predstave" />
+          </Key>
+          <Property Name="ocjena" Type="int" Nullable="false" />
+          <Property Name="datum_ocjenjivanja" Type="date" Nullable="false" />
+          <Property Name="komentar" Type="varchar" MaxLength="200" />
+          <Property Name="Gledalac_ID_korisnika" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Predstava_ID_Predstave" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Red">
+          <Key>
+            <PropertyRef Name="ID_reda" />
+            <PropertyRef Name="Zona_ID_zone" />
+            <PropertyRef Name="Zona_Sala_ID_sale" />
+          </Key>
+          <Property Name="ID_reda" Type="int" Nullable="false" />
+          <Property Name="Zona_ID_zone" Type="int" Nullable="false" />
+          <Property Name="Zona_Sala_ID_sale" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reditelj">
+          <Key>
+            <PropertyRef Name="ID_reditelja" />
+          </Key>
+          <Property Name="ID_reditelja" Type="int" Nullable="false" />
+          <Property Name="Ime_reditelja" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Prezime_reditelja" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reditelji_predstave">
+          <Key>
+            <PropertyRef Name="Predstava_ID_Predstave" />
+            <PropertyRef Name="Reditelj_ID_reditelja" />
+          </Key>
+          <Property Name="Predstava_ID_Predstave" Type="int" Nullable="false" />
+          <Property Name="Reditelj_ID_reditelja" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Repertoar">
+          <Key>
+            <PropertyRef Name="Datum" />
+          </Key>
+          <Property Name="Datum" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rezervacija">
+          <Key>
+            <PropertyRef Name="Sjediste_ID_sjedista" />
+            <PropertyRef Name="Izvedba_ID_izvedbe" />
+          </Key>
+          <Property Name="naziv_rezervacije" Type="varchar" MaxLength="50" />
+          <Property Name="Sjediste_ID_sjedista" Type="int" Nullable="false" />
+          <Property Name="Gledalac_ID_korisnika" Type="varchar" MaxLength="20" />
+          <Property Name="Izvedba_ID_izvedbe" Type="int" Nullable="false" />
+          <Property Name="Sjediste_Red_ID_reda" Type="int" Nullable="false" />
+          <Property Name="Sjediste_Red_Zona_ID_zone" Type="int" Nullable="false" />
+          <Property Name="Sjediste_Red_Zona_Sala_ID_sale" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sala">
+          <Key>
+            <PropertyRef Name="ID_sale" />
+          </Key>
+          <Property Name="ID_sale" Type="int" Nullable="false" />
+          <Property Name="Naziv_Sale" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sjediste">
+          <Key>
+            <PropertyRef Name="ID_sjedista" />
+            <PropertyRef Name="Red_ID_reda" />
+            <PropertyRef Name="Red_Zona_ID_zone" />
+            <PropertyRef Name="Red_Zona_Sala_ID_sale" />
+          </Key>
+          <Property Name="ID_sjedista" Type="int" Nullable="false" />
+          <Property Name="Red_ID_reda" Type="int" Nullable="false" />
+          <Property Name="Red_Zona_ID_zone" Type="int" Nullable="false" />
+          <Property Name="Red_Zona_Sala_ID_sale" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zanr">
+          <Key>
+            <PropertyRef Name="ID_zanra" />
+          </Key>
+          <Property Name="ID_zanra" Type="int" Nullable="false" />
+          <Property Name="Naziv_zanra" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zona">
+          <Key>
+            <PropertyRef Name="ID_zone" />
+            <PropertyRef Name="Sala_ID_sale" />
+          </Key>
+          <Property Name="ID_zone" Type="int" Nullable="false" />
+          <Property Name="Naziv_zone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sala_ID_sale" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="Administrator_Korisnik_FK">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Administrator">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Administrator_Korisnik_FKv1">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Administrator">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Biletar_Korisnik_FK">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Biletar" Type="Self.Biletar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Biletar">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Biletar_Korisnik_FKv1">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Biletar" Type="Self.Biletar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Biletar">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cijena_zone_Cjenovnik_FK">
+          <End Role="Cjenovnik" Type="Self.Cjenovnik" Multiplicity="1" />
+          <End Role="Cijena_zone" Type="Self.Cijena_zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cjenovnik">
+              <PropertyRef Name="id_cjenovnika" />
+            </Principal>
+            <Dependent Role="Cijena_zone">
+              <PropertyRef Name="Cjenovnik_id_cjenovnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cijena_zone_Zona_FK">
+          <End Role="Zona" Type="Self.Zona" Multiplicity="1" />
+          <End Role="Cijena_zone" Type="Self.Cijena_zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zona">
+              <PropertyRef Name="ID_zone" />
+              <PropertyRef Name="Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Cijena_zone">
+              <PropertyRef Name="Zona_ID_zone" />
+              <PropertyRef Name="Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cjenovnik_Izvedba_FK">
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="1" />
+          <End Role="Cjenovnik" Type="Self.Cjenovnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Izvedba">
+              <PropertyRef Name="ID_izvedbe" />
+            </Principal>
+            <Dependent Role="Cjenovnik">
+              <PropertyRef Name="Izvedba_ID_izvedbe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASS_52">
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="1" />
+          <End Role="Karta" Type="Self.Karta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Izvedba">
+              <PropertyRef Name="ID_izvedbe" />
+            </Principal>
+            <Dependent Role="Karta">
+              <PropertyRef Name="Izvedba_ID_izvedbe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASS_53">
+          <End Role="Sjediste" Type="Self.Sjediste" Multiplicity="1" />
+          <End Role="Karta" Type="Self.Karta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sjediste">
+              <PropertyRef Name="ID_sjedista" />
+              <PropertyRef Name="Red_ID_reda" />
+              <PropertyRef Name="Red_Zona_ID_zone" />
+              <PropertyRef Name="Red_Zona_Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Karta">
+              <PropertyRef Name="Sjediste_ID_sjedista" />
+              <PropertyRef Name="Sjediste_Red_ID_reda" />
+              <PropertyRef Name="Sjediste_Red_Zona_ID_zone" />
+              <PropertyRef Name="Sjediste_Red_Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASS_59">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="1" />
+          <End Role="glumci_u_predstavi" Type="Self.glumci_u_predstavi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predstava">
+              <PropertyRef Name="ID_Predstave" />
+            </Principal>
+            <Dependent Role="glumci_u_predstavi">
+              <PropertyRef Name="Predstava_ID_Predstave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASS_60">
+          <End Role="Glumac" Type="Self.Glumac" Multiplicity="1" />
+          <End Role="glumci_u_predstavi" Type="Self.glumci_u_predstavi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Glumac">
+              <PropertyRef Name="ID_glumca" />
+            </Principal>
+            <Dependent Role="glumci_u_predstavi">
+              <PropertyRef Name="Glumac_ID_glumca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASS_69">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="1" />
+          <End Role="reditelji_predstave" Type="Self.reditelji_predstave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predstava">
+              <PropertyRef Name="ID_Predstave" />
+            </Principal>
+            <Dependent Role="reditelji_predstave">
+              <PropertyRef Name="Predstava_ID_Predstave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASS_70">
+          <End Role="Reditelj" Type="Self.Reditelj" Multiplicity="1" />
+          <End Role="reditelji_predstave" Type="Self.reditelji_predstave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reditelj">
+              <PropertyRef Name="ID_reditelja" />
+            </Principal>
+            <Dependent Role="reditelji_predstave">
+              <PropertyRef Name="Reditelj_ID_reditelja" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Gledalac_Korisnik_FK">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Gledalac_Korisnik_FKv1">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Izvedba_Predstava_FK">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="1" />
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predstava">
+              <PropertyRef Name="ID_Predstave" />
+            </Principal>
+            <Dependent Role="Izvedba">
+              <PropertyRef Name="Predstava_ID_Predstave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Izvedba_Repertoar_FK">
+          <End Role="Repertoar" Type="Self.Repertoar" Multiplicity="1" />
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repertoar">
+              <PropertyRef Name="Datum" />
+            </Principal>
+            <Dependent Role="Izvedba">
+              <PropertyRef Name="Repertoar_Datum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Izvedba_Sala_FK">
+          <End Role="Sala" Type="Self.Sala" Multiplicity="1" />
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="ID_sale" />
+            </Principal>
+            <Dependent Role="Izvedba">
+              <PropertyRef Name="Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Predstava_Organizator_FK">
+          <End Role="Organizator" Type="Self.Organizator" Multiplicity="1" />
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizator">
+              <PropertyRef Name="ID_organizatora" />
+            </Principal>
+            <Dependent Role="Predstava">
+              <PropertyRef Name="Organizator_ID_organizatora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Predstava_Zanr_FK">
+          <End Role="Zanr" Type="Self.Zanr" Multiplicity="1" />
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zanr">
+              <PropertyRef Name="ID_zanra" />
+            </Principal>
+            <Dependent Role="Predstava">
+              <PropertyRef Name="Zanr_ID_zanra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Recenzija_Gledalac_FK">
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="Gledalac_ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Recenzija_Predstava_FK">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predstava">
+              <PropertyRef Name="ID_Predstave" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="Predstava_ID_Predstave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Red_Zona_FK">
+          <End Role="Zona" Type="Self.Zona" Multiplicity="1" />
+          <End Role="Red" Type="Self.Red" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zona">
+              <PropertyRef Name="ID_zone" />
+              <PropertyRef Name="Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Red">
+              <PropertyRef Name="Zona_ID_zone" />
+              <PropertyRef Name="Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rezervacija_Gledalac_FK">
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="0..1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="Gledalac_ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rezervacija_Izvedba_FK">
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Izvedba">
+              <PropertyRef Name="ID_izvedbe" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="Izvedba_ID_izvedbe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rezervacija_Sjediste_FK">
+          <End Role="Sjediste" Type="Self.Sjediste" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sjediste">
+              <PropertyRef Name="ID_sjedista" />
+              <PropertyRef Name="Red_ID_reda" />
+              <PropertyRef Name="Red_Zona_ID_zone" />
+              <PropertyRef Name="Red_Zona_Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="Sjediste_ID_sjedista" />
+              <PropertyRef Name="Sjediste_Red_ID_reda" />
+              <PropertyRef Name="Sjediste_Red_Zona_ID_zone" />
+              <PropertyRef Name="Sjediste_Red_Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Sjediste_Red_FK">
+          <End Role="Red" Type="Self.Red" Multiplicity="1" />
+          <End Role="Sjediste" Type="Self.Sjediste" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Red">
+              <PropertyRef Name="ID_reda" />
+              <PropertyRef Name="Zona_ID_zone" />
+              <PropertyRef Name="Zona_Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Sjediste">
+              <PropertyRef Name="Red_ID_reda" />
+              <PropertyRef Name="Red_Zona_ID_zone" />
+              <PropertyRef Name="Red_Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zona_Sala_FK">
+          <End Role="Sala" Type="Self.Sala" Multiplicity="1" />
+          <End Role="Zona" Type="Self.Zona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="ID_sale" />
+            </Principal>
+            <Dependent Role="Zona">
+              <PropertyRef Name="Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="IntervaliIzvedbe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_predstave" Type="int" Mode="In" />
+          <Parameter Name="Id_sale" Type="int" Mode="In" />
+          <Parameter Name="Datum" Type="date" Mode="In" />
+          <Parameter Name="Vrijeme" Type="time" Mode="In" />
+        </Function>
+        <Function Name="PopuniZonu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_sale" Type="int" Mode="In" />
+          <Parameter Name="id_zone" Type="int" Mode="In" />
+          <Parameter Name="broj_redova" Type="int" Mode="In" />
+          <Parameter Name="sjedista_po_redu" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="bazaPozoriste2ModelStoreContainer">
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Biletar" EntityType="Self.Biletar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cijena_zone" EntityType="Self.Cijena_zone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cjenovnik" EntityType="Self.Cjenovnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gledalac" EntityType="Self.Gledalac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Glumac" EntityType="Self.Glumac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="glumci_u_predstavi" EntityType="Self.glumci_u_predstavi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Izvedba" EntityType="Self.Izvedba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Karta" EntityType="Self.Karta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organizator" EntityType="Self.Organizator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Predstava" EntityType="Self.Predstava" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recenzija" EntityType="Self.Recenzija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Red" EntityType="Self.Red" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reditelj" EntityType="Self.Reditelj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reditelji_predstave" EntityType="Self.reditelji_predstave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repertoar" EntityType="Self.Repertoar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rezervacija" EntityType="Self.Rezervacija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sala" EntityType="Self.Sala" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sjediste" EntityType="Self.Sjediste" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zanr" EntityType="Self.Zanr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zona" EntityType="Self.Zona" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Administrator_Korisnik_FK" Association="Self.Administrator_Korisnik_FK">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Administrator" EntitySet="Administrator" />
+          </AssociationSet>
+          <AssociationSet Name="Administrator_Korisnik_FKv1" Association="Self.Administrator_Korisnik_FKv1">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Administrator" EntitySet="Administrator" />
+          </AssociationSet>
+          <AssociationSet Name="Biletar_Korisnik_FK" Association="Self.Biletar_Korisnik_FK">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Biletar" EntitySet="Biletar" />
+          </AssociationSet>
+          <AssociationSet Name="Biletar_Korisnik_FKv1" Association="Self.Biletar_Korisnik_FKv1">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Biletar" EntitySet="Biletar" />
+          </AssociationSet>
+          <AssociationSet Name="Cijena_zone_Cjenovnik_FK" Association="Self.Cijena_zone_Cjenovnik_FK">
+            <End Role="Cjenovnik" EntitySet="Cjenovnik" />
+            <End Role="Cijena_zone" EntitySet="Cijena_zone" />
+          </AssociationSet>
+          <AssociationSet Name="Cijena_zone_Zona_FK" Association="Self.Cijena_zone_Zona_FK">
+            <End Role="Zona" EntitySet="Zona" />
+            <End Role="Cijena_zone" EntitySet="Cijena_zone" />
+          </AssociationSet>
+          <AssociationSet Name="Cjenovnik_Izvedba_FK" Association="Self.Cjenovnik_Izvedba_FK">
+            <End Role="Izvedba" EntitySet="Izvedba" />
+            <End Role="Cjenovnik" EntitySet="Cjenovnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASS_52" Association="Self.FK_ASS_52">
+            <End Role="Izvedba" EntitySet="Izvedba" />
+            <End Role="Karta" EntitySet="Karta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASS_53" Association="Self.FK_ASS_53">
+            <End Role="Sjediste" EntitySet="Sjediste" />
+            <End Role="Karta" EntitySet="Karta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASS_59" Association="Self.FK_ASS_59">
+            <End Role="Predstava" EntitySet="Predstava" />
+            <End Role="glumci_u_predstavi" EntitySet="glumci_u_predstavi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASS_60" Association="Self.FK_ASS_60">
+            <End Role="Glumac" EntitySet="Glumac" />
+            <End Role="glumci_u_predstavi" EntitySet="glumci_u_predstavi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASS_69" Association="Self.FK_ASS_69">
+            <End Role="Predstava" EntitySet="Predstava" />
+            <End Role="reditelji_predstave" EntitySet="reditelji_predstave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASS_70" Association="Self.FK_ASS_70">
+            <End Role="Reditelj" EntitySet="Reditelj" />
+            <End Role="reditelji_predstave" EntitySet="reditelji_predstave" />
+          </AssociationSet>
+          <AssociationSet Name="Gledalac_Korisnik_FK" Association="Self.Gledalac_Korisnik_FK">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Gledalac" EntitySet="Gledalac" />
+          </AssociationSet>
+          <AssociationSet Name="Gledalac_Korisnik_FKv1" Association="Self.Gledalac_Korisnik_FKv1">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Gledalac" EntitySet="Gledalac" />
+          </AssociationSet>
+          <AssociationSet Name="Izvedba_Predstava_FK" Association="Self.Izvedba_Predstava_FK">
+            <End Role="Predstava" EntitySet="Predstava" />
+            <End Role="Izvedba" EntitySet="Izvedba" />
+          </AssociationSet>
+          <AssociationSet Name="Izvedba_Repertoar_FK" Association="Self.Izvedba_Repertoar_FK">
+            <End Role="Repertoar" EntitySet="Repertoar" />
+            <End Role="Izvedba" EntitySet="Izvedba" />
+          </AssociationSet>
+          <AssociationSet Name="Izvedba_Sala_FK" Association="Self.Izvedba_Sala_FK">
+            <End Role="Sala" EntitySet="Sala" />
+            <End Role="Izvedba" EntitySet="Izvedba" />
+          </AssociationSet>
+          <AssociationSet Name="Predstava_Organizator_FK" Association="Self.Predstava_Organizator_FK">
+            <End Role="Organizator" EntitySet="Organizator" />
+            <End Role="Predstava" EntitySet="Predstava" />
+          </AssociationSet>
+          <AssociationSet Name="Predstava_Zanr_FK" Association="Self.Predstava_Zanr_FK">
+            <End Role="Zanr" EntitySet="Zanr" />
+            <End Role="Predstava" EntitySet="Predstava" />
+          </AssociationSet>
+          <AssociationSet Name="Recenzija_Gledalac_FK" Association="Self.Recenzija_Gledalac_FK">
+            <End Role="Gledalac" EntitySet="Gledalac" />
+            <End Role="Recenzija" EntitySet="Recenzija" />
+          </AssociationSet>
+          <AssociationSet Name="Recenzija_Predstava_FK" Association="Self.Recenzija_Predstava_FK">
+            <End Role="Predstava" EntitySet="Predstava" />
+            <End Role="Recenzija" EntitySet="Recenzija" />
+          </AssociationSet>
+          <AssociationSet Name="Red_Zona_FK" Association="Self.Red_Zona_FK">
+            <End Role="Zona" EntitySet="Zona" />
+            <End Role="Red" EntitySet="Red" />
+          </AssociationSet>
+          <AssociationSet Name="Rezervacija_Gledalac_FK" Association="Self.Rezervacija_Gledalac_FK">
+            <End Role="Gledalac" EntitySet="Gledalac" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="Rezervacija_Izvedba_FK" Association="Self.Rezervacija_Izvedba_FK">
+            <End Role="Izvedba" EntitySet="Izvedba" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="Rezervacija_Sjediste_FK" Association="Self.Rezervacija_Sjediste_FK">
+            <End Role="Sjediste" EntitySet="Sjediste" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="Sjediste_Red_FK" Association="Self.Sjediste_Red_FK">
+            <End Role="Red" EntitySet="Red" />
+            <End Role="Sjediste" EntitySet="Sjediste" />
+          </AssociationSet>
+          <AssociationSet Name="Zona_Sala_FK" Association="Self.Zona_Sala_FK">
+            <End Role="Sala" EntitySet="Sala" />
+            <End Role="Zona" EntitySet="Zona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bazaPozoriste2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.Administrator_Korisnik_FK" FromRole="Administrator" ToRole="Korisnik" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.Administrator_Korisnik_FKv1" FromRole="Administrator" ToRole="Korisnik" />
+        </EntityType>
+        <EntityType Name="Biletar">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datum_zaposlenja" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.Biletar_Korisnik_FK" FromRole="Biletar" ToRole="Korisnik" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.Biletar_Korisnik_FKv1" FromRole="Biletar" ToRole="Korisnik" />
+        </EntityType>
+        <EntityType Name="Cjenovnik">
+          <Key>
+            <PropertyRef Name="id_cjenovnika" />
+          </Key>
+          <Property Name="id_cjenovnika" Type="Int32" Nullable="false" />
+          <Property Name="pocetak_vazenja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="kraj_vazenja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Izvedba_ID_izvedbe" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cijena_zone" Relationship="Self.Cijena_zone_Cjenovnik_FK" FromRole="Cjenovnik" ToRole="Cijena_zone" />
+          <NavigationProperty Name="Izvedba" Relationship="Self.Cjenovnik_Izvedba_FK" FromRole="Cjenovnik" ToRole="Izvedba" />
+        </EntityType>
+        <EntityType Name="Gledalac">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Datum_registracije" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.Gledalac_Korisnik_FK" FromRole="Gledalac" ToRole="Korisnik" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.Gledalac_Korisnik_FKv1" FromRole="Gledalac" ToRole="Korisnik" />
+          <NavigationProperty Name="Recenzijas" Relationship="Self.Recenzija_Gledalac_FK" FromRole="Gledalac" ToRole="Recenzija" />
+          <NavigationProperty Name="Rezervacijas" Relationship="Self.Rezervacija_Gledalac_FK" FromRole="Gledalac" ToRole="Rezervacija" />
+        </EntityType>
+        <EntityType Name="Glumac">
+          <Key>
+            <PropertyRef Name="ID_glumca" />
+          </Key>
+          <Property Name="ID_glumca" Type="Int32" Nullable="false" />
+          <Property Name="Ime_glumca" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prezime_glumca" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Predstavas" Relationship="Self.glumci_u_predstavi" FromRole="Glumac" ToRole="Predstava" />
+        </EntityType>
+        <EntityType Name="Izvedba">
+          <Key>
+            <PropertyRef Name="ID_izvedbe" />
+          </Key>
+          <Property Name="ID_izvedbe" Type="Int32" Nullable="false" />
+          <Property Name="Vrijeme_izvodjenja" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Sala_ID_sale" Type="Int32" Nullable="false" />
+          <Property Name="Predstava_ID_Predstave" Type="Int32" Nullable="false" />
+          <Property Name="Repertoar_Datum" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Cjenovniks" Relationship="Self.Cjenovnik_Izvedba_FK" FromRole="Izvedba" ToRole="Cjenovnik" />
+          <NavigationProperty Name="Predstava" Relationship="Self.Izvedba_Predstava_FK" FromRole="Izvedba" ToRole="Predstava" />
+          <NavigationProperty Name="Repertoar" Relationship="Self.Izvedba_Repertoar_FK" FromRole="Izvedba" ToRole="Repertoar" />
+          <NavigationProperty Name="Sala" Relationship="Self.Izvedba_Sala_FK" FromRole="Izvedba" ToRole="Sala" />
+          <NavigationProperty Name="Rezervacijas" Relationship="Self.Rezervacija_Izvedba_FK" FromRole="Izvedba" ToRole="Rezervacija" />
+          <NavigationProperty Name="Sjedistes" Relationship="Self.Karta" FromRole="Izvedba" ToRole="Sjediste" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="ID_korisnika" />
+          </Key>
+          <Property Name="ID_korisnika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sifra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Administrator" Relationship="Self.Administrator_Korisnik_FK" FromRole="Korisnik" ToRole="Administrator" />
+          <NavigationProperty Name="Administrator1" Relationship="Self.Administrator_Korisnik_FKv1" FromRole="Korisnik" ToRole="Administrator" />
+          <NavigationProperty Name="Biletar" Relationship="Self.Biletar_Korisnik_FK" FromRole="Korisnik" ToRole="Biletar" />
+          <NavigationProperty Name="Biletar1" Relationship="Self.Biletar_Korisnik_FKv1" FromRole="Korisnik" ToRole="Biletar" />
+          <NavigationProperty Name="Gledalac" Relationship="Self.Gledalac_Korisnik_FK" FromRole="Korisnik" ToRole="Gledalac" />
+          <NavigationProperty Name="Gledalac1" Relationship="Self.Gledalac_Korisnik_FKv1" FromRole="Korisnik" ToRole="Gledalac" />
+        </EntityType>
+        <EntityType Name="Organizator">
+          <Key>
+            <PropertyRef Name="ID_organizatora" />
+          </Key>
+          <Property Name="ID_organizatora" Type="Int32" Nullable="false" />
+          <Property Name="Naziv_organizatora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Predstavas" Relationship="Self.Predstava_Organizator_FK" FromRole="Organizator" ToRole="Predstava" />
+        </EntityType>
+        <EntityType Name="Predstava">
+          <Key>
+            <PropertyRef Name="ID_Predstave" />
+          </Key>
+          <Property Name="ID_Predstave" Type="Int32" Nullable="false" />
+          <Property Name="Naziv_Predstave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duzina_trajanja" Type="Int32" Nullable="false" />
+          <Property Name="Opis_predstave" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Organizator_ID_organizatora" Type="Int32" Nullable="false" />
+          <Property Name="Zanr_ID_zanra" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Izvedbas" Relationship="Self.Izvedba_Predstava_FK" FromRole="Predstava" ToRole="Izvedba" />
+          <NavigationProperty Name="Organizator" Relationship="Self.Predstava_Organizator_FK" FromRole="Predstava" ToRole="Organizator" />
+          <NavigationProperty Name="Zanr" Relationship="Self.Predstava_Zanr_FK" FromRole="Predstava" ToRole="Zanr" />
+          <NavigationProperty Name="Recenzijas" Relationship="Self.Recenzija_Predstava_FK" FromRole="Predstava" ToRole="Recenzija" />
+          <NavigationProperty Name="Glumacs" Relationship="Self.glumci_u_predstavi" FromRole="Predstava" ToRole="Glumac" />
+          <NavigationProperty Name="Rediteljs" Relationship="Self.reditelji_predstave" FromRole="Predstava" ToRole="Reditelj" />
+          <Property Name="slika" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Recenzija">
+          <Key>
+            <PropertyRef Name="Gledalac_ID_korisnika" />
+            <PropertyRef Name="Predstava_ID_Predstave" />
+          </Key>
+          <Property Name="ocjena" Type="Int32" Nullable="false" />
+          <Property Name="datum_ocjenjivanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="komentar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Gledalac_ID_korisnika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Predstava_ID_Predstave" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gledalac" Relationship="Self.Recenzija_Gledalac_FK" FromRole="Recenzija" ToRole="Gledalac" />
+          <NavigationProperty Name="Predstava" Relationship="Self.Recenzija_Predstava_FK" FromRole="Recenzija" ToRole="Predstava" />
+        </EntityType>
+        <EntityType Name="Red">
+          <Key>
+            <PropertyRef Name="ID_reda" />
+            <PropertyRef Name="Zona_ID_zone" />
+            <PropertyRef Name="Zona_Sala_ID_sale" />
+          </Key>
+          <Property Name="ID_reda" Type="Int32" Nullable="false" />
+          <Property Name="Zona_ID_zone" Type="Int32" Nullable="false" />
+          <Property Name="Zona_Sala_ID_sale" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Zona" Relationship="Self.Red_Zona_FK" FromRole="Red" ToRole="Zona" />
+          <NavigationProperty Name="Sjedistes" Relationship="Self.Sjediste_Red_FK" FromRole="Red" ToRole="Sjediste" />
+        </EntityType>
+        <EntityType Name="Reditelj">
+          <Key>
+            <PropertyRef Name="ID_reditelja" />
+          </Key>
+          <Property Name="ID_reditelja" Type="Int32" Nullable="false" />
+          <Property Name="Ime_reditelja" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prezime_reditelja" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Predstavas" Relationship="Self.reditelji_predstave" FromRole="Reditelj" ToRole="Predstava" />
+        </EntityType>
+        <EntityType Name="Repertoar">
+          <Key>
+            <PropertyRef Name="Datum" />
+          </Key>
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Izvedbas" Relationship="Self.Izvedba_Repertoar_FK" FromRole="Repertoar" ToRole="Izvedba" />
+        </EntityType>
+        <EntityType Name="Rezervacija">
+          <Key>
+            <PropertyRef Name="Sjediste_ID_sjedista" />
+            <PropertyRef Name="Izvedba_ID_izvedbe" />
+          </Key>
+          <Property Name="naziv_rezervacije" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sjediste_ID_sjedista" Type="Int32" Nullable="false" />
+          <Property Name="Gledalac_ID_korisnika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Izvedba_ID_izvedbe" Type="Int32" Nullable="false" />
+          <Property Name="Sjediste_Red_ID_reda" Type="Int32" Nullable="false" />
+          <Property Name="Sjediste_Red_Zona_ID_zone" Type="Int32" Nullable="false" />
+          <Property Name="Sjediste_Red_Zona_Sala_ID_sale" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gledalac" Relationship="Self.Rezervacija_Gledalac_FK" FromRole="Rezervacija" ToRole="Gledalac" />
+          <NavigationProperty Name="Izvedba" Relationship="Self.Rezervacija_Izvedba_FK" FromRole="Rezervacija" ToRole="Izvedba" />
+          <NavigationProperty Name="Sjediste" Relationship="Self.Rezervacija_Sjediste_FK" FromRole="Rezervacija" ToRole="Sjediste" />
+        </EntityType>
+        <EntityType Name="Sala">
+          <Key>
+            <PropertyRef Name="ID_sale" />
+          </Key>
+          <Property Name="ID_sale" Type="Int32" Nullable="false" />
+          <Property Name="Naziv_Sale" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Izvedbas" Relationship="Self.Izvedba_Sala_FK" FromRole="Sala" ToRole="Izvedba" />
+          <NavigationProperty Name="Zonas" Relationship="Self.Zona_Sala_FK" FromRole="Sala" ToRole="Zona" />
+        </EntityType>
+        <EntityType Name="Sjediste">
+          <Key>
+            <PropertyRef Name="ID_sjedista" />
+            <PropertyRef Name="Red_ID_reda" />
+            <PropertyRef Name="Red_Zona_ID_zone" />
+            <PropertyRef Name="Red_Zona_Sala_ID_sale" />
+          </Key>
+          <Property Name="ID_sjedista" Type="Int32" Nullable="false" />
+          <Property Name="Red_ID_reda" Type="Int32" Nullable="false" />
+          <Property Name="Red_Zona_ID_zone" Type="Int32" Nullable="false" />
+          <Property Name="Red_Zona_Sala_ID_sale" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Red" Relationship="Self.Sjediste_Red_FK" FromRole="Sjediste" ToRole="Red" />
+          <NavigationProperty Name="Rezervacijas" Relationship="Self.Rezervacija_Sjediste_FK" FromRole="Sjediste" ToRole="Rezervacija" />
+          <NavigationProperty Name="Izvedbas" Relationship="Self.Karta" FromRole="Sjediste" ToRole="Izvedba" />
+        </EntityType>
+        <EntityType Name="Zanr">
+          <Key>
+            <PropertyRef Name="ID_zanra" />
+          </Key>
+          <Property Name="ID_zanra" Type="Int32" Nullable="false" />
+          <Property Name="Naziv_zanra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Predstavas" Relationship="Self.Predstava_Zanr_FK" FromRole="Zanr" ToRole="Predstava" />
+        </EntityType>
+        <EntityType Name="Zona">
+          <Key>
+            <PropertyRef Name="ID_zone" />
+            <PropertyRef Name="Sala_ID_sale" />
+          </Key>
+          <Property Name="ID_zone" Type="Int32" Nullable="false" />
+          <Property Name="Naziv_zone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sala_ID_sale" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reds" Relationship="Self.Red_Zona_FK" FromRole="Zona" ToRole="Red" />
+          <NavigationProperty Name="Sala" Relationship="Self.Zona_Sala_FK" FromRole="Zona" ToRole="Sala" />
+          <NavigationProperty Name="Cijena_zone" Relationship="Self.Cijena_zone_Zona_FK" FromRole="Zona" ToRole="Cijena_zone" />
+        </EntityType>
+        <EntityType Name="Cijena_zone">
+          <Key>
+            <PropertyRef Name="Zona_ID_zone" />
+            <PropertyRef Name="Zona_Sala_ID_sale" />
+            <PropertyRef Name="Cjenovnik_id_cjenovnika" />
+          </Key>
+          <Property Name="Cijena" Type="Int32" Nullable="false" />
+          <Property Name="Zona_ID_zone" Type="Int32" Nullable="false" />
+          <Property Name="Zona_Sala_ID_sale" Type="Int32" Nullable="false" />
+          <Property Name="Cjenovnik_id_cjenovnika" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cjenovnik" Relationship="Self.Cijena_zone_Cjenovnik_FK" FromRole="Cijena_zone" ToRole="Cjenovnik" />
+          <NavigationProperty Name="Zona" Relationship="Self.Cijena_zone_Zona_FK" FromRole="Cijena_zone" ToRole="Zona" />
+        </EntityType>
+        <Association Name="Administrator_Korisnik_FK">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Administrator">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Administrator_Korisnik_FKv1">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Administrator">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Biletar_Korisnik_FK">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Biletar" Type="Self.Biletar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Biletar">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Biletar_Korisnik_FKv1">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Biletar" Type="Self.Biletar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Biletar">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cijena_zone_Cjenovnik_FK">
+          <End Role="Cjenovnik" Type="Self.Cjenovnik" Multiplicity="1" />
+          <End Role="Cijena_zone" Type="Self.Cijena_zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cjenovnik">
+              <PropertyRef Name="id_cjenovnika" />
+            </Principal>
+            <Dependent Role="Cijena_zone">
+              <PropertyRef Name="Cjenovnik_id_cjenovnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cjenovnik_Izvedba_FK">
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="1" />
+          <End Role="Cjenovnik" Type="Self.Cjenovnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Izvedba">
+              <PropertyRef Name="ID_izvedbe" />
+            </Principal>
+            <Dependent Role="Cjenovnik">
+              <PropertyRef Name="Izvedba_ID_izvedbe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Gledalac_Korisnik_FK">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Gledalac_Korisnik_FKv1">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Recenzija_Gledalac_FK">
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="Gledalac_ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rezervacija_Gledalac_FK">
+          <End Role="Gledalac" Type="Self.Gledalac" Multiplicity="0..1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gledalac">
+              <PropertyRef Name="ID_korisnika" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="Gledalac_ID_korisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Izvedba_Predstava_FK">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="1" />
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predstava">
+              <PropertyRef Name="ID_Predstave" />
+            </Principal>
+            <Dependent Role="Izvedba">
+              <PropertyRef Name="Predstava_ID_Predstave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Izvedba_Repertoar_FK">
+          <End Role="Repertoar" Type="Self.Repertoar" Multiplicity="1" />
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repertoar">
+              <PropertyRef Name="Datum" />
+            </Principal>
+            <Dependent Role="Izvedba">
+              <PropertyRef Name="Repertoar_Datum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Izvedba_Sala_FK">
+          <End Role="Sala" Type="Self.Sala" Multiplicity="1" />
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="ID_sale" />
+            </Principal>
+            <Dependent Role="Izvedba">
+              <PropertyRef Name="Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rezervacija_Izvedba_FK">
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Izvedba">
+              <PropertyRef Name="ID_izvedbe" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="Izvedba_ID_izvedbe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Predstava_Organizator_FK">
+          <End Role="Organizator" Type="Self.Organizator" Multiplicity="1" />
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizator">
+              <PropertyRef Name="ID_organizatora" />
+            </Principal>
+            <Dependent Role="Predstava">
+              <PropertyRef Name="Organizator_ID_organizatora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Predstava_Zanr_FK">
+          <End Role="Zanr" Type="Self.Zanr" Multiplicity="1" />
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zanr">
+              <PropertyRef Name="ID_zanra" />
+            </Principal>
+            <Dependent Role="Predstava">
+              <PropertyRef Name="Zanr_ID_zanra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Recenzija_Predstava_FK">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predstava">
+              <PropertyRef Name="ID_Predstave" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="Predstava_ID_Predstave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Red_Zona_FK">
+          <End Role="Zona" Type="Self.Zona" Multiplicity="1" />
+          <End Role="Red" Type="Self.Red" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zona">
+              <PropertyRef Name="ID_zone" />
+              <PropertyRef Name="Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Red">
+              <PropertyRef Name="Zona_ID_zone" />
+              <PropertyRef Name="Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Sjediste_Red_FK">
+          <End Role="Red" Type="Self.Red" Multiplicity="1" />
+          <End Role="Sjediste" Type="Self.Sjediste" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Red">
+              <PropertyRef Name="ID_reda" />
+              <PropertyRef Name="Zona_ID_zone" />
+              <PropertyRef Name="Zona_Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Sjediste">
+              <PropertyRef Name="Red_ID_reda" />
+              <PropertyRef Name="Red_Zona_ID_zone" />
+              <PropertyRef Name="Red_Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rezervacija_Sjediste_FK">
+          <End Role="Sjediste" Type="Self.Sjediste" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sjediste">
+              <PropertyRef Name="ID_sjedista" />
+              <PropertyRef Name="Red_ID_reda" />
+              <PropertyRef Name="Red_Zona_ID_zone" />
+              <PropertyRef Name="Red_Zona_Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="Sjediste_ID_sjedista" />
+              <PropertyRef Name="Sjediste_Red_ID_reda" />
+              <PropertyRef Name="Sjediste_Red_Zona_ID_zone" />
+              <PropertyRef Name="Sjediste_Red_Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zona_Sala_FK">
+          <End Role="Sala" Type="Self.Sala" Multiplicity="1" />
+          <End Role="Zona" Type="Self.Zona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="ID_sale" />
+            </Principal>
+            <Dependent Role="Zona">
+              <PropertyRef Name="Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cijena_zone_Zona_FK">
+          <End Role="Zona" Type="Self.Zona" Multiplicity="1" />
+          <End Role="Cijena_zone" Type="Self.Cijena_zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zona">
+              <PropertyRef Name="ID_zone" />
+              <PropertyRef Name="Sala_ID_sale" />
+            </Principal>
+            <Dependent Role="Cijena_zone">
+              <PropertyRef Name="Zona_ID_zone" />
+              <PropertyRef Name="Zona_Sala_ID_sale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="glumci_u_predstavi">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="*" />
+          <End Role="Glumac" Type="Self.Glumac" Multiplicity="*" />
+        </Association>
+        <Association Name="Karta">
+          <End Role="Izvedba" Type="Self.Izvedba" Multiplicity="*" />
+          <End Role="Sjediste" Type="Self.Sjediste" Multiplicity="*" />
+        </Association>
+        <Association Name="reditelji_predstave">
+          <End Role="Predstava" Type="Self.Predstava" Multiplicity="*" />
+          <End Role="Reditelj" Type="Self.Reditelj" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="bazaPozoriste2Entities5" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
+          <EntitySet Name="Biletars" EntityType="Self.Biletar" />
+          <EntitySet Name="Cjenovniks" EntityType="Self.Cjenovnik" />
+          <EntitySet Name="Gledalacs" EntityType="Self.Gledalac" />
+          <EntitySet Name="Glumacs" EntityType="Self.Glumac" />
+          <EntitySet Name="Izvedbas" EntityType="Self.Izvedba" />
+          <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
+          <EntitySet Name="Organizators" EntityType="Self.Organizator" />
+          <EntitySet Name="Predstavas" EntityType="Self.Predstava" />
+          <EntitySet Name="Recenzijas" EntityType="Self.Recenzija" />
+          <EntitySet Name="Reds" EntityType="Self.Red" />
+          <EntitySet Name="Rediteljs" EntityType="Self.Reditelj" />
+          <EntitySet Name="Repertoars" EntityType="Self.Repertoar" />
+          <EntitySet Name="Rezervacijas" EntityType="Self.Rezervacija" />
+          <EntitySet Name="Salas" EntityType="Self.Sala" />
+          <EntitySet Name="Sjedistes" EntityType="Self.Sjediste" />
+          <EntitySet Name="Zanrs" EntityType="Self.Zanr" />
+          <EntitySet Name="Zonas" EntityType="Self.Zona" />
+          <EntitySet Name="Cijena_zone" EntityType="Self.Cijena_zone" />
+          <AssociationSet Name="Administrator_Korisnik_FK" Association="Self.Administrator_Korisnik_FK">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Administrator" EntitySet="Administrators" />
+          </AssociationSet>
+          <AssociationSet Name="Administrator_Korisnik_FKv1" Association="Self.Administrator_Korisnik_FKv1">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Administrator" EntitySet="Administrators" />
+          </AssociationSet>
+          <AssociationSet Name="Biletar_Korisnik_FK" Association="Self.Biletar_Korisnik_FK">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Biletar" EntitySet="Biletars" />
+          </AssociationSet>
+          <AssociationSet Name="Biletar_Korisnik_FKv1" Association="Self.Biletar_Korisnik_FKv1">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Biletar" EntitySet="Biletars" />
+          </AssociationSet>
+          <AssociationSet Name="Cijena_zone_Cjenovnik_FK" Association="Self.Cijena_zone_Cjenovnik_FK">
+            <End Role="Cjenovnik" EntitySet="Cjenovniks" />
+            <End Role="Cijena_zone" EntitySet="Cijena_zone" />
+          </AssociationSet>
+          <AssociationSet Name="Cjenovnik_Izvedba_FK" Association="Self.Cjenovnik_Izvedba_FK">
+            <End Role="Izvedba" EntitySet="Izvedbas" />
+            <End Role="Cjenovnik" EntitySet="Cjenovniks" />
+          </AssociationSet>
+          <AssociationSet Name="Gledalac_Korisnik_FK" Association="Self.Gledalac_Korisnik_FK">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Gledalac" EntitySet="Gledalacs" />
+          </AssociationSet>
+          <AssociationSet Name="Gledalac_Korisnik_FKv1" Association="Self.Gledalac_Korisnik_FKv1">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Gledalac" EntitySet="Gledalacs" />
+          </AssociationSet>
+          <AssociationSet Name="Recenzija_Gledalac_FK" Association="Self.Recenzija_Gledalac_FK">
+            <End Role="Gledalac" EntitySet="Gledalacs" />
+            <End Role="Recenzija" EntitySet="Recenzijas" />
+          </AssociationSet>
+          <AssociationSet Name="Rezervacija_Gledalac_FK" Association="Self.Rezervacija_Gledalac_FK">
+            <End Role="Gledalac" EntitySet="Gledalacs" />
+            <End Role="Rezervacija" EntitySet="Rezervacijas" />
+          </AssociationSet>
+          <AssociationSet Name="Izvedba_Predstava_FK" Association="Self.Izvedba_Predstava_FK">
+            <End Role="Predstava" EntitySet="Predstavas" />
+            <End Role="Izvedba" EntitySet="Izvedbas" />
+          </AssociationSet>
+          <AssociationSet Name="Izvedba_Repertoar_FK" Association="Self.Izvedba_Repertoar_FK">
+            <End Role="Repertoar" EntitySet="Repertoars" />
+            <End Role="Izvedba" EntitySet="Izvedbas" />
+          </AssociationSet>
+          <AssociationSet Name="Izvedba_Sala_FK" Association="Self.Izvedba_Sala_FK">
+            <End Role="Sala" EntitySet="Salas" />
+            <End Role="Izvedba" EntitySet="Izvedbas" />
+          </AssociationSet>
+          <AssociationSet Name="Rezervacija_Izvedba_FK" Association="Self.Rezervacija_Izvedba_FK">
+            <End Role="Izvedba" EntitySet="Izvedbas" />
+            <End Role="Rezervacija" EntitySet="Rezervacijas" />
+          </AssociationSet>
+          <AssociationSet Name="Predstava_Organizator_FK" Association="Self.Predstava_Organizator_FK">
+            <End Role="Organizator" EntitySet="Organizators" />
+            <End Role="Predstava" EntitySet="Predstavas" />
+          </AssociationSet>
+          <AssociationSet Name="Predstava_Zanr_FK" Association="Self.Predstava_Zanr_FK">
+            <End Role="Zanr" EntitySet="Zanrs" />
+            <End Role="Predstava" EntitySet="Predstavas" />
+          </AssociationSet>
+          <AssociationSet Name="Recenzija_Predstava_FK" Association="Self.Recenzija_Predstava_FK">
+            <End Role="Predstava" EntitySet="Predstavas" />
+            <End Role="Recenzija" EntitySet="Recenzijas" />
+          </AssociationSet>
+          <AssociationSet Name="Red_Zona_FK" Association="Self.Red_Zona_FK">
+            <End Role="Zona" EntitySet="Zonas" />
+            <End Role="Red" EntitySet="Reds" />
+          </AssociationSet>
+          <AssociationSet Name="Sjediste_Red_FK" Association="Self.Sjediste_Red_FK">
+            <End Role="Red" EntitySet="Reds" />
+            <End Role="Sjediste" EntitySet="Sjedistes" />
+          </AssociationSet>
+          <AssociationSet Name="Rezervacija_Sjediste_FK" Association="Self.Rezervacija_Sjediste_FK">
+            <End Role="Sjediste" EntitySet="Sjedistes" />
+            <End Role="Rezervacija" EntitySet="Rezervacijas" />
+          </AssociationSet>
+          <AssociationSet Name="Zona_Sala_FK" Association="Self.Zona_Sala_FK">
+            <End Role="Sala" EntitySet="Salas" />
+            <End Role="Zona" EntitySet="Zonas" />
+          </AssociationSet>
+          <AssociationSet Name="Cijena_zone_Zona_FK" Association="Self.Cijena_zone_Zona_FK">
+            <End Role="Zona" EntitySet="Zonas" />
+            <End Role="Cijena_zone" EntitySet="Cijena_zone" />
+          </AssociationSet>
+          <AssociationSet Name="glumci_u_predstavi" Association="Self.glumci_u_predstavi">
+            <End Role="Predstava" EntitySet="Predstavas" />
+            <End Role="Glumac" EntitySet="Glumacs" />
+          </AssociationSet>
+          <AssociationSet Name="Karta" Association="Self.Karta">
+            <End Role="Izvedba" EntitySet="Izvedbas" />
+            <End Role="Sjediste" EntitySet="Sjedistes" />
+          </AssociationSet>
+          <AssociationSet Name="reditelji_predstave" Association="Self.reditelji_predstave">
+            <End Role="Predstava" EntitySet="Predstavas" />
+            <End Role="Reditelj" EntitySet="Rediteljs" />
+          </AssociationSet>
+          <FunctionImport Name="IntervaliIzvedbe">
+            <Parameter Name="Id_predstave" Mode="In" Type="Int32" />
+            <Parameter Name="Id_sale" Mode="In" Type="Int32" />
+            <Parameter Name="Datum" Mode="In" Type="DateTime" />
+            <Parameter Name="Vrijeme" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="PopuniZonu">
+            <Parameter Name="id_sale" Mode="In" Type="Int32" />
+            <Parameter Name="id_zone" Mode="In" Type="Int32" />
+            <Parameter Name="broj_redova" Mode="In" Type="Int32" />
+            <Parameter Name="sjedista_po_redu" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bazaPozoriste2ModelStoreContainer" CdmEntityContainer="bazaPozoriste2Entities5">
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Biletars">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Biletar">
+              <MappingFragment StoreEntitySet="Biletar">
+                <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+                <ScalarProperty Name="datum_zaposlenja" ColumnName="datum_zaposlenja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cjenovniks">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Cjenovnik">
+              <MappingFragment StoreEntitySet="Cjenovnik">
+                <ScalarProperty Name="id_cjenovnika" ColumnName="id_cjenovnika" />
+                <ScalarProperty Name="pocetak_vazenja" ColumnName="pocetak_vazenja" />
+                <ScalarProperty Name="kraj_vazenja" ColumnName="kraj_vazenja" />
+                <ScalarProperty Name="Izvedba_ID_izvedbe" ColumnName="Izvedba_ID_izvedbe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gledalacs">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Gledalac">
+              <MappingFragment StoreEntitySet="Gledalac">
+                <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+                <ScalarProperty Name="Datum_registracije" ColumnName="Datum_registracije" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Glumacs">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Glumac">
+              <MappingFragment StoreEntitySet="Glumac">
+                <ScalarProperty Name="ID_glumca" ColumnName="ID_glumca" />
+                <ScalarProperty Name="Ime_glumca" ColumnName="Ime_glumca" />
+                <ScalarProperty Name="Prezime_glumca" ColumnName="Prezime_glumca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Izvedbas">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Izvedba">
+              <MappingFragment StoreEntitySet="Izvedba">
+                <ScalarProperty Name="ID_izvedbe" ColumnName="ID_izvedbe" />
+                <ScalarProperty Name="Vrijeme_izvodjenja" ColumnName="Vrijeme_izvodjenja" />
+                <ScalarProperty Name="Sala_ID_sale" ColumnName="Sala_ID_sale" />
+                <ScalarProperty Name="Predstava_ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+                <ScalarProperty Name="Repertoar_Datum" ColumnName="Repertoar_Datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisniks">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Korisnik">
+              <MappingFragment StoreEntitySet="Korisnik">
+                <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizators">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Organizator">
+              <MappingFragment StoreEntitySet="Organizator">
+                <ScalarProperty Name="ID_organizatora" ColumnName="ID_organizatora" />
+                <ScalarProperty Name="Naziv_organizatora" ColumnName="Naziv_organizatora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Predstavas">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Predstava">
+              <MappingFragment StoreEntitySet="Predstava">
+                <ScalarProperty Name="slika" ColumnName="slika" />
+                <ScalarProperty Name="ID_Predstave" ColumnName="ID_Predstave" />
+                <ScalarProperty Name="Naziv_Predstave" ColumnName="Naziv_Predstave" />
+                <ScalarProperty Name="Duzina_trajanja" ColumnName="Duzina_trajanja" />
+                <ScalarProperty Name="Opis_predstave" ColumnName="Opis_predstave" />
+                <ScalarProperty Name="Organizator_ID_organizatora" ColumnName="Organizator_ID_organizatora" />
+                <ScalarProperty Name="Zanr_ID_zanra" ColumnName="Zanr_ID_zanra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recenzijas">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Recenzija">
+              <MappingFragment StoreEntitySet="Recenzija">
+                <ScalarProperty Name="ocjena" ColumnName="ocjena" />
+                <ScalarProperty Name="datum_ocjenjivanja" ColumnName="datum_ocjenjivanja" />
+                <ScalarProperty Name="komentar" ColumnName="komentar" />
+                <ScalarProperty Name="Gledalac_ID_korisnika" ColumnName="Gledalac_ID_korisnika" />
+                <ScalarProperty Name="Predstava_ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reds">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Red">
+              <MappingFragment StoreEntitySet="Red">
+                <ScalarProperty Name="ID_reda" ColumnName="ID_reda" />
+                <ScalarProperty Name="Zona_ID_zone" ColumnName="Zona_ID_zone" />
+                <ScalarProperty Name="Zona_Sala_ID_sale" ColumnName="Zona_Sala_ID_sale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rediteljs">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Reditelj">
+              <MappingFragment StoreEntitySet="Reditelj">
+                <ScalarProperty Name="ID_reditelja" ColumnName="ID_reditelja" />
+                <ScalarProperty Name="Ime_reditelja" ColumnName="Ime_reditelja" />
+                <ScalarProperty Name="Prezime_reditelja" ColumnName="Prezime_reditelja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repertoars">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Repertoar">
+              <MappingFragment StoreEntitySet="Repertoar">
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rezervacijas">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Rezervacija">
+              <MappingFragment StoreEntitySet="Rezervacija">
+                <ScalarProperty Name="naziv_rezervacije" ColumnName="naziv_rezervacije" />
+                <ScalarProperty Name="Sjediste_ID_sjedista" ColumnName="Sjediste_ID_sjedista" />
+                <ScalarProperty Name="Gledalac_ID_korisnika" ColumnName="Gledalac_ID_korisnika" />
+                <ScalarProperty Name="Izvedba_ID_izvedbe" ColumnName="Izvedba_ID_izvedbe" />
+                <ScalarProperty Name="Sjediste_Red_ID_reda" ColumnName="Sjediste_Red_ID_reda" />
+                <ScalarProperty Name="Sjediste_Red_Zona_ID_zone" ColumnName="Sjediste_Red_Zona_ID_zone" />
+                <ScalarProperty Name="Sjediste_Red_Zona_Sala_ID_sale" ColumnName="Sjediste_Red_Zona_Sala_ID_sale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salas">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Sala">
+              <MappingFragment StoreEntitySet="Sala">
+                <ScalarProperty Name="ID_sale" ColumnName="ID_sale" />
+                <ScalarProperty Name="Naziv_Sale" ColumnName="Naziv_Sale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sjedistes">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Sjediste">
+              <MappingFragment StoreEntitySet="Sjediste">
+                <ScalarProperty Name="ID_sjedista" ColumnName="ID_sjedista" />
+                <ScalarProperty Name="Red_ID_reda" ColumnName="Red_ID_reda" />
+                <ScalarProperty Name="Red_Zona_ID_zone" ColumnName="Red_Zona_ID_zone" />
+                <ScalarProperty Name="Red_Zona_Sala_ID_sale" ColumnName="Red_Zona_Sala_ID_sale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zanrs">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Zanr">
+              <MappingFragment StoreEntitySet="Zanr">
+                <ScalarProperty Name="ID_zanra" ColumnName="ID_zanra" />
+                <ScalarProperty Name="Naziv_zanra" ColumnName="Naziv_zanra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zonas">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Zona">
+              <MappingFragment StoreEntitySet="Zona">
+                <ScalarProperty Name="ID_zone" ColumnName="ID_zone" />
+                <ScalarProperty Name="Naziv_zone" ColumnName="Naziv_zone" />
+                <ScalarProperty Name="Sala_ID_sale" ColumnName="Sala_ID_sale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cijena_zone">
+            <EntityTypeMapping TypeName="bazaPozoriste2Model.Cijena_zone">
+              <MappingFragment StoreEntitySet="Cijena_zone">
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="Zona_ID_zone" ColumnName="Zona_ID_zone" />
+                <ScalarProperty Name="Zona_Sala_ID_sale" ColumnName="Zona_Sala_ID_sale" />
+                <ScalarProperty Name="Cjenovnik_id_cjenovnika" ColumnName="Cjenovnik_id_cjenovnika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="glumci_u_predstavi" TypeName="bazaPozoriste2Model.glumci_u_predstavi" StoreEntitySet="glumci_u_predstavi">
+            <EndProperty Name="Predstava">
+              <ScalarProperty Name="ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+            </EndProperty>
+            <EndProperty Name="Glumac">
+              <ScalarProperty Name="ID_glumca" ColumnName="Glumac_ID_glumca" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Karta" TypeName="bazaPozoriste2Model.Karta" StoreEntitySet="Karta">
+            <EndProperty Name="Izvedba">
+              <ScalarProperty Name="ID_izvedbe" ColumnName="Izvedba_ID_izvedbe" />
+            </EndProperty>
+            <EndProperty Name="Sjediste">
+              <ScalarProperty Name="ID_sjedista" ColumnName="Sjediste_ID_sjedista" />
+              <ScalarProperty Name="Red_ID_reda" ColumnName="Sjediste_Red_ID_reda" />
+              <ScalarProperty Name="Red_Zona_ID_zone" ColumnName="Sjediste_Red_Zona_ID_zone" />
+              <ScalarProperty Name="Red_Zona_Sala_ID_sale" ColumnName="Sjediste_Red_Zona_Sala_ID_sale" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="reditelji_predstave" TypeName="bazaPozoriste2Model.reditelji_predstave" StoreEntitySet="reditelji_predstave">
+            <EndProperty Name="Predstava">
+              <ScalarProperty Name="ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+            </EndProperty>
+            <EndProperty Name="Reditelj">
+              <ScalarProperty Name="ID_reditelja" ColumnName="Reditelj_ID_reditelja" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="IntervaliIzvedbe" FunctionName="bazaPozoriste2Model.Store.IntervaliIzvedbe" />
+          <FunctionImportMapping FunctionImportName="PopuniZonu" FunctionName="bazaPozoriste2Model.Store.PopuniZonu" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

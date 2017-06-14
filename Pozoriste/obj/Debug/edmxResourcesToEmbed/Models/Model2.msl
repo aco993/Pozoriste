@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="bazaPozoriste2ModelStoreContainer" CdmEntityContainer="bazaPozoriste2Entities">
+    <EntitySetMapping Name="Administrators">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Administrator">
+        <MappingFragment StoreEntitySet="Administrator">
+          <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Biletars">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Biletar">
+        <MappingFragment StoreEntitySet="Biletar">
+          <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+          <ScalarProperty Name="datum_zaposlenja" ColumnName="datum_zaposlenja" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cjenovniks">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Cjenovnik">
+        <MappingFragment StoreEntitySet="Cjenovnik">
+          <ScalarProperty Name="id_cjenovnika" ColumnName="id_cjenovnika" />
+          <ScalarProperty Name="pocetak_vazenja" ColumnName="pocetak_vazenja" />
+          <ScalarProperty Name="kraj_vazenja" ColumnName="kraj_vazenja" />
+          <ScalarProperty Name="Izvedba_ID_izvedbe" ColumnName="Izvedba_ID_izvedbe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gledalacs">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Gledalac">
+        <MappingFragment StoreEntitySet="Gledalac">
+          <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+          <ScalarProperty Name="Datum_registracije" ColumnName="Datum_registracije" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Glumacs">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Glumac">
+        <MappingFragment StoreEntitySet="Glumac">
+          <ScalarProperty Name="ID_glumca" ColumnName="ID_glumca" />
+          <ScalarProperty Name="Ime_glumca" ColumnName="Ime_glumca" />
+          <ScalarProperty Name="Prezime_glumca" ColumnName="Prezime_glumca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Izvedbas">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Izvedba">
+        <MappingFragment StoreEntitySet="Izvedba">
+          <ScalarProperty Name="ID_izvedbe" ColumnName="ID_izvedbe" />
+          <ScalarProperty Name="Vrijeme_izvodjenja" ColumnName="Vrijeme_izvodjenja" />
+          <ScalarProperty Name="Sala_ID_sale" ColumnName="Sala_ID_sale" />
+          <ScalarProperty Name="Predstava_ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+          <ScalarProperty Name="Repertoar_Datum" ColumnName="Repertoar_Datum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Korisniks">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Korisnik">
+        <MappingFragment StoreEntitySet="Korisnik">
+          <ScalarProperty Name="ID_korisnika" ColumnName="ID_korisnika" />
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizators">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Organizator">
+        <MappingFragment StoreEntitySet="Organizator">
+          <ScalarProperty Name="ID_organizatora" ColumnName="ID_organizatora" />
+          <ScalarProperty Name="Naziv_organizatora" ColumnName="Naziv_organizatora" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Predstavas">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Predstava">
+        <MappingFragment StoreEntitySet="Predstava">
+          <ScalarProperty Name="ID_Predstave" ColumnName="ID_Predstave" />
+          <ScalarProperty Name="Naziv_Predstave" ColumnName="Naziv_Predstave" />
+          <ScalarProperty Name="Duzina_trajanja" ColumnName="Duzina_trajanja" />
+          <ScalarProperty Name="Opis_predstave" ColumnName="Opis_predstave" />
+          <ScalarProperty Name="Organizator_ID_organizatora" ColumnName="Organizator_ID_organizatora" />
+          <ScalarProperty Name="Zanr_ID_zanra" ColumnName="Zanr_ID_zanra" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reds">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Red">
+        <MappingFragment StoreEntitySet="Red">
+          <ScalarProperty Name="ID_reda" ColumnName="ID_reda" />
+          <ScalarProperty Name="Zona_ID_zone" ColumnName="Zona_ID_zone" />
+          <ScalarProperty Name="Zona_Sala_ID_sale" ColumnName="Zona_Sala_ID_sale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rediteljs">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Reditelj">
+        <MappingFragment StoreEntitySet="Reditelj">
+          <ScalarProperty Name="ID_reditelja" ColumnName="ID_reditelja" />
+          <ScalarProperty Name="Ime_reditelja" ColumnName="Ime_reditelja" />
+          <ScalarProperty Name="Prezime_reditelja" ColumnName="Prezime_reditelja" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Repertoars">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Repertoar">
+        <MappingFragment StoreEntitySet="Repertoar">
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salas">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Sala">
+        <MappingFragment StoreEntitySet="Sala">
+          <ScalarProperty Name="ID_sale" ColumnName="ID_sale" />
+          <ScalarProperty Name="Naziv_Sale" ColumnName="Naziv_Sale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sjedistes">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Sjediste">
+        <MappingFragment StoreEntitySet="Sjediste">
+          <ScalarProperty Name="ID_sjedista" ColumnName="ID_sjedista" />
+          <ScalarProperty Name="Red_ID_reda" ColumnName="Red_ID_reda" />
+          <ScalarProperty Name="Red_Zona_ID_zone" ColumnName="Red_Zona_ID_zone" />
+          <ScalarProperty Name="Red_Zona_Sala_ID_sale" ColumnName="Red_Zona_Sala_ID_sale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zanrs">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Zanr">
+        <MappingFragment StoreEntitySet="Zanr">
+          <ScalarProperty Name="ID_zanra" ColumnName="ID_zanra" />
+          <ScalarProperty Name="Naziv_zanra" ColumnName="Naziv_zanra" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zonas">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Zona">
+        <MappingFragment StoreEntitySet="Zona">
+          <ScalarProperty Name="ID_zone" ColumnName="ID_zone" />
+          <ScalarProperty Name="Naziv_zone" ColumnName="Naziv_zone" />
+          <ScalarProperty Name="Sala_ID_sale" ColumnName="Sala_ID_sale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cijena_zone">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Cijena_zone">
+        <MappingFragment StoreEntitySet="Cijena_zone">
+          <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+          <ScalarProperty Name="Zona_ID_zone" ColumnName="Zona_ID_zone" />
+          <ScalarProperty Name="Zona_ID_sale" ColumnName="Zona_ID_sale" />
+          <ScalarProperty Name="Cjenovnik_id_cjenovnika" ColumnName="Cjenovnik_id_cjenovnika" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recenzijas">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Recenzija">
+        <MappingFragment StoreEntitySet="Recenzija">
+          <ScalarProperty Name="ocjena" ColumnName="ocjena" />
+          <ScalarProperty Name="datum_ocjenjivanja" ColumnName="datum_ocjenjivanja" />
+          <ScalarProperty Name="komentar" ColumnName="komentar" />
+          <ScalarProperty Name="Gledalac_ID_korisnika" ColumnName="Gledalac_ID_korisnika" />
+          <ScalarProperty Name="Predstava_ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rezervacijas">
+      <EntityTypeMapping TypeName="bazaPozoriste2Model.Rezervacija">
+        <MappingFragment StoreEntitySet="Rezervacija">
+          <ScalarProperty Name="naziv_rezervacije" ColumnName="naziv_rezervacije" />
+          <ScalarProperty Name="Sjediste_ID_sjedista" ColumnName="Sjediste_ID_sjedista" />
+          <ScalarProperty Name="Gledalac_ID_korisnika" ColumnName="Gledalac_ID_korisnika" />
+          <ScalarProperty Name="Izvedba_ID_izvedbe" ColumnName="Izvedba_ID_izvedbe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="glumci_u_predstavi" TypeName="bazaPozoriste2Model.glumci_u_predstavi" StoreEntitySet="glumci_u_predstavi">
+      <EndProperty Name="Predstava">
+        <ScalarProperty Name="ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+      </EndProperty>
+      <EndProperty Name="Glumac">
+        <ScalarProperty Name="ID_glumca" ColumnName="Glumac_ID_glumca" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Karta" TypeName="bazaPozoriste2Model.Karta" StoreEntitySet="Karta">
+      <EndProperty Name="Izvedba">
+        <ScalarProperty Name="ID_izvedbe" ColumnName="Izvedba_ID_izvedbe" />
+      </EndProperty>
+      <EndProperty Name="Sjediste">
+        <ScalarProperty Name="ID_sjedista" ColumnName="Sjediste_ID_sjedista" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="reditelji_predstave" TypeName="bazaPozoriste2Model.reditelji_predstave" StoreEntitySet="reditelji_predstave">
+      <EndProperty Name="Predstava">
+        <ScalarProperty Name="ID_Predstave" ColumnName="Predstava_ID_Predstave" />
+      </EndProperty>
+      <EndProperty Name="Reditelj">
+        <ScalarProperty Name="ID_reditelja" ColumnName="Reditelj_ID_reditelja" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

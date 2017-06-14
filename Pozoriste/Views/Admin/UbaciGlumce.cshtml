@@ -1,0 +1,88 @@
+﻿@model Pozoriste.ViewModel.DodavanjePredstave
+
+@{
+    ViewBag.Title = "UbaciGlumce";
+}
+
+<h2>Ubacite glumce </h2>
+
+@using (Html.BeginForm())
+{
+
+        <div class="form-group">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dostupni</th>
+                        <th>
+                        </th>
+                        <th>Ubaceni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            @Html.ListBoxFor(model => model.selektovaniDostupniGlumci,
+                            new MultiSelectList(Model.dostupniGlumci, "Id_glumca",
+                            "Ime_glumca", Model.selektovaniDostupniGlumci),
+                            new { size = "6" })
+                        </td>
+                        <td valign="top">
+                            <input type="submit" name="add"
+                                   id="add" value=">>" /><br />
+                            <input type="submit" name="remove"
+                                   id="remove" value="<<" />
+                        </td>
+                        <td valign="top">
+                            @Html.ListBoxFor(model => model.selektovaniIzabraniGlumci,
+         new MultiSelectList(Model.izabraniGlumci, "Id_glumca",
+         "Ime_glumca", Model.selektovaniIzabraniGlumci))
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+        
+        </div>
+    <h2>Ubacite reditelje</h2>
+            <div class="form-group">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dostupni</th>
+                        <th>
+                        </th>
+                        <th>Ubaceni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            @Html.ListBoxFor(model => model.selektovaniDostupniReditelji,
+                            new MultiSelectList(Model.dostupniReditelji, "Id_reditelja",
+                            "Ime_reditelja", Model.selektovaniDostupniReditelji),
+                            new { size = "6" })
+                        </td>
+                        <td valign="top">
+                            <input type="submit" name="add2"
+                                   id="add" value=">>" /><br />
+                            <input type="submit" name="remove2"
+                                   id="remove" value="<<" />
+                        </td>
+                        <td valign="top">
+                            @Html.ListBoxFor(model => model.selektovaniIzabraniReditelji,
+         new MultiSelectList(Model.izabraniReditelji, "ID_reditelja",
+         "Ime_reditelja", Model.selektovaniIzabraniReditelji))
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+        
+        </div>
+
+
+    
+}
+@Html.ActionLink("Sačuvaj", "Index")
+

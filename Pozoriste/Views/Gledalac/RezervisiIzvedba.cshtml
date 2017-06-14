@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "RezervisiIzvedba";
+}
+
+
+@{
+
+    int kolona = @ViewBag.BrojSjedista / @ViewBag.BrojRedova;
+}
+
+    <h2>Rezervacija</h2>
+<form action="/Gledalac/Obrada" method="post">
+    <div class="btn-group" data-toggle="buttons">
+        @for (var m = 0; m < kolona; m++)
+        {
+            <tr>
+                @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+                {
+
+                    if ((m * @ViewBag.BrojRedova + n) >= 10)
+                    {
+                        if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
+                        {
+                            <td>
+                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px" >
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <label class="btn btn-primary" style="width:80px" disabled >
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                        }
+                    }
+                    else
+                    {
+                        if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
+                        {
+                            <td>
+                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px">
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  0@(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <label class="btn btn-primary" style="width:80px" disabled >
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> 0@(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                        }
+                    }
+
+                }
+                <p> </p>
+            </tr>
+
+
+        }
+    </div>
+    <p>
+        <input type="submit" name="submitButton" value="Rezerviši" />  <input type="submit" name="submitButton" value="Otkaži" /><br>
+       
+   </p>
+    
+
+
+
+

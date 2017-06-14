@@ -1,0 +1,309 @@
+﻿@model Tuple<List<Pozoriste.Models.Zona>,List<Pozoriste.Models.Rezervacija>,List<Pozoriste.Models.Sjediste>>
+
+
+
+@{
+    ViewBag.Title = "PregledIzvedba";
+    
+}
+
+<br>
+
+@{
+
+    int kolona = @ViewBag.BrojSjedista / @ViewBag.BrojRedova;
+}
+
+
+<ul class="nav nav-tabs">
+    <li class="active">
+
+        <a href="#tab_1" data-toggle="tab">Rezervacija</a>
+    </li>
+    <li>
+        <a href="#tab_2" data-toggle="tab">Prodaja</a>
+    </li>
+
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tab_1">
+        <br>
+        <form action="/Biletar/ObradaRezervacije" method="post">
+            <div class="btn-group" data-toggle="buttons">
+                @for (var m = 0; m < kolona; m++)
+                {
+                    <tr>
+                        @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+                        {
+
+                            if ((m * @ViewBag.BrojRedova + n) >= 10)
+                            {
+
+                                if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
+                                {
+                                    if (!ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
+                                    {
+                                        <td>
+                                            <label class="btn btn-primary" style="width:80px" disabled>
+                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+
+                                            </label>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px">
+                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
+
+                                            </label>
+                                        </td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td>
+                                        <label class="btn btn-primary" style="width:80px" disabled>
+                                            <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+
+                                        </label>
+                                    </td>
+                                }
+                            }
+                            else
+                            {
+                                if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
+                                {
+                                    if (!ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
+                                    {
+                                        <td>
+                                            <label class="btn btn-primary" style="width:80px" disabled>
+                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+
+                                            </label>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px">
+                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
+
+                                            </label>
+                                        </td>
+                                    }
+                                }
+
+                                else
+                                {
+                                    <td>
+                                        <label class="btn btn-primary" style="width:80px" disabled>
+                                            <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+
+                                        </label>
+                                    </td>
+                                }
+                            }
+
+                        }
+                        <p> </p>
+                    </tr>
+
+
+                }
+            </div>
+                <p>
+                    <input type="submit" name="submitButton" value="Rezerviši" />  <br>
+
+                </p>
+                
+                </form>
+
+
+                <fieldset>
+                    <legend> Rezervacije </legend>
+                    <table>
+
+                        <tr>
+                            <th>
+                                Korisnik
+                            </th>
+                            <th>
+                                Naziv rezervacije
+                            </th>
+                            <th>
+                                Sjedište
+                            </th>
+                            <th>
+                                Red
+                            </th>
+
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model.Item2)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gledalac_ID_korisnika)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.naziv_rezervacije)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sjediste_ID_sjedista)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sjediste_Red_ID_reda)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Prodaja", "ProdajaIzvedba", new { id = item.Izvedba_ID_izvedbe, id2 = item.Sjediste_ID_sjedista })
+                                </td>
+                                <td>
+                                    <a id="deleteItem" class="deleteItem" data-target="#basic" data-toggle="modal" data-id="@item.Izvedba_ID_izvedbe" data-id2="@item.Sjediste_ID_sjedista"><font color="F6855E"><strong>Otkaži</strong></font></a>
+
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </table>
+
+                </fieldset>
+            </div>
+    <div class="tab-pane fade" id="tab_2">
+        <br>
+        <form action="/Biletar/ObradaProdaje" method="post">
+            <div class="btn-group" data-toggle="buttons">
+                @for (var m = 0; m < kolona; m++)
+                {
+                    <tr>
+                        @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+                        {
+
+                            if ((m * @ViewBag.BrojRedova + n) >= 10)
+                            {
+                                if (ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
+                                {
+                                        <td>
+                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px" >
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                                }
+                                else
+                                {
+                              <td>
+                                <label class="btn btn-primary" style="width:80px" disabled >
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                                }
+                            }
+                            else
+                            {
+                                if (ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
+                                {
+                                        <td>
+                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px" >
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                                }
+                                else
+                                {
+                             <td>
+                                <label class="btn btn-primary" style="width:80px" disabled >
+                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+
+                                </label>
+                            </td>
+                                }
+                            }
+
+                        }
+                        <p> </p>
+                    </tr>
+                
+
+                }
+                </div>
+            <p>
+                <input type="submit" name="submitButton" value="Prodaj" />  <br>
+
+            </p>
+            </form>
+
+                <fieldset>
+                    <legend> Prodate karte </legend>
+                    <table>
+
+                        <tr>
+
+                            <th>
+                                Sjedište
+                            </th>
+                            <th>
+                                Red
+                            </th>
+
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model.Item3)
+                        {
+
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID_sjedista)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Red_ID_reda)
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </table>
+
+                </fieldset>
+            </div>
+    </div>
+
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Potvrda otkazivanja</h4>
+            </div>
+            <div class="modal-body">
+                Da li ste sigurni da želite da otkažete ovu rezervaciju?
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn btn-default">Cancel</button>
+                <button id="btnContinueDelete" type="button" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var item_to_delete;
+        $(".deleteItem").click(function (e) {
+            item_to_delete = $(this).data('id');
+            item_to_delete2 = $(this).data('id2');
+        });
+        $('#btnContinueDelete').click(function () {
+           window.location = "/Biletar/PonistiRezervacija/" + item_to_delete+"00"+item_to_delete2; //improvizovano
+           
+        });
+    </script>

@@ -1,0 +1,40 @@
+﻿@model List<Pozoriste.Models.Cijena_zone>
+
+@{
+    ViewBag.Title = "Dodaj Cjenovnik";
+}
+
+<h2>DodajCjenovnik</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+ <table border="1" cellpadding="6">   
+
+
+        @Html.ValidationSummary(true)
+
+                @for (int i = 0; i < ViewBag.broj; i++)
+        {
+         <tr>
+             <td>
+                 @Html.TextBox("cjenovnici[" + i + "].Zona.Naziv_zone",
+                                      Model[i].Zona.Naziv_zone, 
+                                      new { @readonly = "readonly" })
+            </td>
+                    
+            <td>
+                @Html.TextBox("cjenovnici["+ i +"].cijena",
+                                      Model[i].Cijena)
+            </td>
+             </tr>
+                }
+        <tr >
+            <td colspan="4">
+                <input type="submit" value="Dodaj" />
+</td>
+</tr>
+</table>
+}
+

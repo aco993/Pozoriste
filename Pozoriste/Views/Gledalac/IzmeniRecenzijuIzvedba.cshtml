@@ -1,0 +1,44 @@
+﻿@model Pozoriste.Models.Recenzija
+
+@{
+    ViewBag.Title = "IzmeniRecenzijuIzvedba";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Recenzija</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ocjena, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ocjena)
+                @Html.ValidationMessageFor(model => model.ocjena)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.komentar, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.TextAreaFor(model => model.komentar, 5, 20, null)
+                @Html.ValidationMessageFor(model => model.komentar)
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sačuvaj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Vrati se na prethodnu stranicu", "Index")
+</div>

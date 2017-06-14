@@ -1,0 +1,150 @@
+﻿@model Tuple<List<Pozoriste.ViewModel.Karta>, List<Pozoriste.Models.Rezervacija>>
+
+@{
+    ViewBag.Title = "IstorijaRez";
+}
+
+<!DOCTYPE html>
+
+<br>
+<ul class="nav nav-tabs">
+    <li class="active">
+
+        <a href="#tab_1" data-toggle="tab">Istorija rezervacija</a>
+    </li>
+    <li>
+        <a href="#tab_2" data-toggle="tab">Istorija prodaje</a>
+    </li>
+
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tab_1">
+       
+
+        <p>
+
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Naziv rezervacije
+                </th>
+                <th>
+                    Sjedište
+                </th>
+                <th>
+                    Gledalac
+                </th>
+                <th>
+                    Izvedba
+                </th>
+                <th>
+                    Red
+                </th>
+                <th>
+                    Zona
+                </th>
+                <th>
+                    Sala
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Item2)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.naziv_rezervacije)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sjediste_ID_sjedista)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gledalac_ID_korisnika)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Izvedba_ID_izvedbe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sjediste_Red_ID_reda)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sjediste_Red_Zona_ID_zone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sjediste_Red_Zona_Sala_ID_sale)
+                    </td>
+                    <td></td>
+
+                </tr>
+            }
+
+        </table>
+
+
+        <p>
+            @Html.ActionLink("Broj Rezervisanih karata po predstavi", "GrafikRezervacija")
+        </p>
+    </div>
+
+
+        <div class="tab-pane fade" id="tab_2">
+         
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Sjedište
+                    </th>
+                    <th>
+                        Naziv rezervacije
+                    </th>
+                    <th>
+                        Izvedba
+                    </th>
+                    <th>
+                        Red
+                    </th>
+                    <th>
+                        Zona
+                    </th>
+                    <th>
+                        Sala
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Item1)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sjediste_ID_sjedista)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Naziv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Izvedba_ID_izvedbe)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sjediste_Red_ID_reda)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sjediste_Red_Zona_ID_zone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sjediste_Red_Zona_Sala_ID_sale)
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+
+            </table>
+
+            <p>
+                @Html.ActionLink("Broj prodatih karata po predstavi", "GrafikProdaja")
+            </p>
+</div>
+</div>

@@ -1,0 +1,46 @@
+﻿@model Pozoriste.Models.Glumac
+
+@{
+    ViewBag.Title = "CreateGlumac";
+}
+
+<h2>CreateGlumac</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Glumac</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+@Html.HiddenFor(model=>model.ID_glumca)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ime_glumca, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ime_glumca)
+                @Html.ValidationMessageFor(model => model.Ime_glumca)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prezime_glumca, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Prezime_glumca)
+                @Html.ValidationMessageFor(model => model.Prezime_glumca)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

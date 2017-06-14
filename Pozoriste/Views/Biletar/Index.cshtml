@@ -1,0 +1,241 @@
+﻿@model Pozoriste.ViewModel.ProfilBiletara
+
+@{
+    ViewBag.Title = "Index";
+}
+<h1> </h1>
+<h2>Početna stranica biletara</h2>
+
+<fieldset>
+    <legend> Osnovne informacije</legend>
+    <dl class="dl-horizontal">
+        <dt>
+           Korisničko ime
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_korisnika)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prezime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prezime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datum_zaposlenja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datum_zaposlenja)
+        </dd>
+        <dd>
+            @Html.ActionLink("Promijeni", "EditProfil", new { id = Model.ID_korisnika })
+        </dd>
+    </dl>
+</fieldset>
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="#tab_1" data-toggle="tab">Danas</a>
+    </li>
+    <li>
+        <a href="#tab_2" data-toggle="tab">7 dana</a>
+    </li>
+    <li>
+        <a href="#tab_3" data-toggle="tab">30 dana</a>
+    </li>
+
+
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active"  id="tab_1">
+        <fieldset>
+            <legend> Danas </legend>
+            <table>
+
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Naziv predstave
+                    </th>
+                    <th>
+                        Datum izvodjenja
+                    </th>
+                    <th>
+                        Vrijeme izvodjenja
+                    </th>
+                    <th>
+                        Sala
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.izvedbeD)
+                {
+                    <tr>
+                        <td>
+                            <img src='~/Images/@Html.ValueFor(modelItem => item.Predstava.SlikaURL)'>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Predstava.Naziv_Predstave)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Repertoar_Datum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vrijeme_izvodjenja)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sala.Naziv_Sale)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Prodaja/Rezervacija", "PregledIzvedba", new { id = item.ID_izvedbe })
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+            <p>
+
+        </fieldset>
+    </div>
+
+
+    <div class="tab-pane fade" id="tab_2">
+        <fieldset>
+            <legend> 7 dana </legend>
+            <table>
+
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Naziv predstave
+                    </th>
+                    <th>
+                        Datum izvodjenja
+                    </th>
+                    <th>
+                        Vrijeme izvodjenja
+                    </th>
+                    <th>
+                        Sala
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.izvedbeS)
+                {
+                    <tr>
+                        <td>
+                            <img src='~/Images/@Html.ValueFor(modelItem => item.Predstava.SlikaURL)'>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Predstava.Naziv_Predstave)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Repertoar_Datum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vrijeme_izvodjenja)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sala.Naziv_Sale)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Prodaja/Rezervacija", "PregledIzvedba", new { id = item.ID_izvedbe })
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+        </fieldset>
+    </div>
+
+
+    <div class="tab-pane fade" id="tab_3">
+        <fieldset>
+            <legend> 30 dana </legend>
+            <table>
+
+                <tr>
+                    <th>
+                 
+                    </th>
+                    <th>
+                        Naziv predstave
+                    </th>
+                    <th>
+                        Datum izvodjenja
+                    </th>
+                    <th>
+                        Vrijeme izvodjenja
+                    </th>
+                    <th>
+                        Sala
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.izvedbeM)
+                {
+                    <tr>
+                        <td>
+                            <img src='~/Images/@Html.ValueFor(modelItem => item.Predstava.SlikaURL)'>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Predstava.Naziv_Predstave)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Repertoar_Datum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vrijeme_izvodjenja)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sala.Naziv_Sale)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Prodaja/Rezervacija", "PregledIzvedba", new { id = item.ID_izvedbe })
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+        </fieldset>
+
+        </p>
+        </div>
+    </div>
+@Html.ActionLink("Istorija rezervacija i prodaje karata", "IstorijaRez", new { /* id=Model.PrimaryKey */ }) 
+
+
+
+

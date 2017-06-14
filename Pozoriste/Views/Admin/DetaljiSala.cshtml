@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Pozoriste.Models.Zona>
+
+@{
+
+    int kolona = @ViewBag.BrojSjedista / @ViewBag.BrojRedova;
+}
+
+@{
+    ViewBag.Title = "DetaljiSala";
+}
+
+<h2>Detalji o sali</h2>
+
+@for (var m = 0; m < kolona; m++)
+{
+    <tr>
+        @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+        {
+            if ((m * @ViewBag.BrojRedova + n) >= 10)
+            {
+                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" style="color:red">@(m * @ViewBag.BrojRedova + n)</button>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" style="color:red">0@(m * @ViewBag.BrojRedova + n)</button>
+                </td>
+            }
+
+        }
+        <p> </p>
+    </tr>
+
+
+}
+
