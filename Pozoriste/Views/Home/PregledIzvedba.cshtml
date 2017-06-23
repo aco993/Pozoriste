@@ -1,0 +1,174 @@
+﻿@model Pozoriste.Models.Predstava
+
+@{
+    ViewBag.Title = "PregledIzvedba";
+}
+
+<h2></h2>
+
+<div>
+    <h4>Predstava "@Html.DisplayFor(model => model.Naziv_Predstave)"</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            <img src='~/Images/@Html.ValueFor(model=>model.SlikaURL)'>
+        </dt>
+        <dd>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Duzina_trajanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duzina_trajanja) minuta
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opis_predstave)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opis_predstave)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Organizator.Naziv_organizatora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Organizator.Naziv_organizatora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zanr.Naziv_zanra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zanr.Naziv_zanra)
+        </dd>
+        <dt>
+            Recenzija
+        </dt>
+
+        <dd>
+
+            @ViewBag.prosjecna
+        </dd>
+    </dl>
+    <fieldset>
+        <legend>Reditelji</legend>
+        <table>
+
+            <tr>
+                <th>
+                    Ime
+                </th>
+                <th>
+                    Prezime
+                </th>
+
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Rediteljs)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ime_reditelja)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prezime_reditelja)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+    </fieldset>
+
+    <fieldset>
+        <legend> Glumci</legend>
+        <table>
+
+            <tr>
+                <th>
+                    Ime
+                </th>
+                <th>
+                    Prezime
+                </th>
+
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Glumacs)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ime_glumca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prezime_glumca)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+    </fieldset>
+
+    <fieldset>
+        <legend> Recenzije</legend>
+        <table>
+
+            <tr>
+                <th>
+                    Gledalac
+                </th>
+                <th>
+                    Ocjena
+                </th>
+                <th>
+                    Komentar
+                </th>
+                <th>
+                    Datum ocjenjivanja
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in ViewBag.listaRecenzija as IEnumerable<Pozoriste.Models.Recenzija>)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gledalac_ID_korisnika)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ocjena)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.komentar)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.datum_ocjenjivanja)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+    </fieldset>
+
+</div>
+
+

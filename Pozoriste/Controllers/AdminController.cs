@@ -119,28 +119,35 @@ namespace Pozoriste.Controllers
             return View(profil);
         }
 
-        //
-        // GET: /Admin/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /Admin/Create
-        public ActionResult CreateBiletar()
-        {
-
-            return View();
-        }
         [HttpGet]
         public ActionResult DetaljiSala(int id)
         {
+            Session["sala"] = id;
             var sala = db.Salas.Find(id);
             ViewBag.brojSjedista = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == id).Count();
             ViewBag.brojRedova = db.Reds.Where(x => x.Zona_Sala_ID_sale == id).Count();
+            int brojSjedista = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == id).Count();
+            int brojRedova = db.Reds.Where(x => x.Zona_Sala_ID_sale == id).Count();
             List<Zona> listaZona = db.Zonas.Where(x => x.Sala_ID_sale == sala.ID_sale).ToList();
-            return View(listaZona);
+            List<ViewModel.ZonaUSali> listaZonaUSali = new List<ViewModel.ZonaUSali>();
+            foreach (var item in listaZona)
+            {
+                ViewModel.ZonaUSali zona = new ViewModel.ZonaUSali();
+                zona.Sala_ID_sale = id;
+                zona.brojSjedista = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == id).Where(x => x.Red_Zona_ID_zone == item.ID_zone).Count();
+                zona.brojRedova = db.Reds.Where(x => x.Zona_Sala_ID_sale == id).Where(x=>x.Zona_ID_zone==item.ID_zone).Count();
+                zona.Naziv_zone = item.Naziv_zone;
+                zona.ID_zone = item.ID_zone;
+                listaZonaUSali.Add(zona);
+            }
+            return View(listaZonaUSali);
+        }
+        //
+        //GET: /Admin/CreateBiletar
+        [HttpGet]
+        public ActionResult CreateBiletar()
+        {
+            return View();
         }
 
         //
@@ -186,56 +193,27 @@ namespace Pozoriste.Controllers
             }
         }
 
-
-
-        //
-        // GET: /Admin/Edit/5
-        public ActionResult Edit(int id)
+        //GET: /Create/Sala
+        [HttpGet]
+        public ActionResult CreateSala()
         {
             return View();
         }
 
-        //
-        // POST: /Admin/Edit/5
+        //POST: /Create/Sala
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult CreateSala(Sala sala)
         {
-            try
+            ModelState.Remove("ID_sale");
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                sala.ID_sale = db.Salas.Max(x => x.ID_sale)+1;
+                db.Salas.Add(sala);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
-
-        //
-        // GET: /Admin/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Admin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         //
         // GET: /Admin/Create
         [HttpGet]
@@ -298,21 +276,6 @@ namespace Pozoriste.Controllers
         [HttpGet]
         public ActionResult UbaciGlumce()
         {
-
- /*           var id = TempData["idpredstave"];
-            TempData["idpredstave1"] = TempData["idpredstave"];
-
-            List<Glumac> glumciLista = db.Glumacs.ToList();
-
-            var model = new DodavanjeGlumaca()
-                        {
-                            selektovaniGlumci = new[] { "1" },
-                            glumci = glumciLista.Select(x => new SelectListItem
-                            {
-                                Value = x.ID_glumca.ToString(),
-                                Text = x.Ime_glumca + " " + x.Prezime_glumca
-                            })
-                        };*/
 
             ViewModel.DodavanjePredstave dp = new ViewModel.DodavanjePredstave();
             dp.dostupniGlumci = db.Glumacs.ToList();
@@ -413,52 +376,6 @@ namespace Pozoriste.Controllers
 
 
     return View(model);
-            //srediti
-     /*       List<Glumac> glumciLista = db.Glumacs.ToList();
-            foreach (var item in lista.selektovaniGlumci)
-            {
-                var idpredstave = TempData["idpredstave1"];
-                int i = Int32.Parse(item) - 1;
-                db.Predstavas.FirstOrDefault(x => x.ID_Predstave == (int)idpredstave).Glumacs.Add(glumciLista[i]);
-                db.SaveChanges();
-            }
-            return RedirectToAction("UbaciReditelje");*/
-        }
-
-        public ActionResult UbaciReditelje()
-        {
-
-            var id = TempData["idpredstave1"];
-            TempData["idpredstave2"] = TempData["idpredstave1"];
-
-            List<Reditelj> rediteljiLista = db.Rediteljs.ToList();
-
-            var model = new DodavanjeReditelja()
-            {
-                selektovaniReditelji = new[] { "1" },
-                reditelji = rediteljiLista.Select(x => new SelectListItem
-                {
-                    Value = x.ID_reditelja.ToString(),
-                    Text = x.Ime_reditelja + " " + x.Prezime_reditelja
-                })
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult UbaciReditelje(DodavanjeReditelja lista)
-        {
-            //srediti
-            List<Reditelj> rediteljiLista = db.Rediteljs.ToList();
-            foreach (var item in lista.selektovaniReditelji)
-            {
-                var idpredstave = TempData["idpredstave2"];
-                int i = Int32.Parse(item) - 1;
-                db.Predstavas.FirstOrDefault(x => x.ID_Predstave == (int)idpredstave).Rediteljs.Add(rediteljiLista[i]);
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -523,6 +440,7 @@ namespace Pozoriste.Controllers
             int cjenovnika = db.Cjenovniks.Count()+1;
             TempData["izvedba"] = id;
             Cjenovnik cjenovnik = new Cjenovnik(cjenovnika, DateTime.Now, izvedba.Repertoar_Datum, izvedba.ID_izvedbe);
+            int stari = db.Cjenovniks.Where(x => x.Izvedba_ID_izvedbe == id).Max(x => x.id_cjenovnika);
             db.SaveChanges();
             TempData["cjenovnik"] = cjenovnik;
             TempData["idcjenovnika"] = cjenovnika;
@@ -530,10 +448,21 @@ namespace Pozoriste.Controllers
             
             foreach (var item in zona)
             {
-                Cijena_zone cjen_zona = new Cijena_zone(0, item.ID_zone, item.Sala_ID_sale, cjenovnik.id_cjenovnika);
                 Zona zonica = db.Zonas.Where(x => x.ID_zone == item.ID_zone).Single();
-                cjen_zona.Zona = zonica;
-                cjenZone.Add(cjen_zona);
+                if (stari > 0)
+                {
+                    int stara_cijena = db.Cijena_zone.Where(x => x.Cjenovnik_id_cjenovnika == stari).Where(x=>x.Zona_ID_zone==item.ID_zone).Select(x=>x.Cijena).Single();
+                    Cijena_zone cjen_zona = new Cijena_zone(stara_cijena, item.ID_zone, item.Sala_ID_sale, cjenovnik.id_cjenovnika);
+                    cjen_zona.Zona = zonica;
+                    cjenZone.Add(cjen_zona);
+                }
+                else
+                {
+                    Cijena_zone cjen_zona = new Cijena_zone(0, item.ID_zone, item.Sala_ID_sale, cjenovnik.id_cjenovnika);
+                    cjen_zona.Zona = zonica;
+                    cjenZone.Add(cjen_zona);
+                }
+                
             }
             
             return View(cjenZone);
@@ -543,8 +472,10 @@ namespace Pozoriste.Controllers
         {
             foreach (Cijena_zone cjenovnik in cjenovnici)
             {
+                int idizvedbe = (int)TempData["izvedba"];
+                int idsale=db.Izvedbas.Where(x=>x.ID_izvedbe==idizvedbe).Select(x=>x.Sala_ID_sale).Single();
                 Cijena_zone cjen = new Cijena_zone();
-                cjen.Zona_ID_zone = db.Zonas.Where(x => x.Naziv_zone == cjenovnik.Zona.Naziv_zone).Select(x => x.ID_zone).Single();
+                cjen.Zona_ID_zone = db.Zonas.Where(x => x.Naziv_zone == cjenovnik.Zona.Naziv_zone).Where(x=>x.Sala_ID_sale==idsale).Select(x => x.ID_zone).Single();
                 cjen.Cijena = cjenovnik.Cijena;
                 cjen.Zona_Sala_ID_sale = db.Zonas.Where(x => x.ID_zone == cjen.Zona_ID_zone).Select(x => x.Sala_ID_sale).Single();
                 //cjen.Zona_Sala_ID_sale = db.Zonas.Where(x => x.ID_zone == cjenovnik.Zona_ID_zone).Select(x => x.Sala_ID_sale).Single();
@@ -667,68 +598,59 @@ namespace Pozoriste.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult CreateZona() {
+            int idsale = (int)Session["sala"];
+            int brojzona = db.Zonas.Where(x => x.Sala_ID_sale == idsale).Count();
+            ViewBag.brojzona = brojzona;
+            return View();        
+        }
+        [HttpPost]
+        public ActionResult CreateZona(Zona zona, String redova,String sjedista) {
+            //TODO: mozda odraditi preko procedure
+            int idsale = (int)Session["sala"];
+            Sala sala = db.Salas.Find(idsale);
+            int maxr;
+            int maxs;
+            int kolona;
+            int r = Int32.Parse(redova);
+            maxr = db.Reds.Where(x => x.Zona_Sala_ID_sale == idsale).Count();
+            
+            if (sjedista==null) {
+            maxs = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == idsale).Max(x => x.ID_sjedista); }
+            else { 
+                maxs=Int32.Parse(sjedista); }
+            if (maxr == 0) { kolona = maxs/r;  }
+            else { kolona = maxs /maxr; }
+            zona.Sala_ID_sale = idsale;
+            zona.ID_zone = db.Zonas.Max(x => x.ID_zone)+1;
+            zona.Sala = sala;
+            db.Zonas.Add(zona);
+            db.SaveChanges();
+            for (int i = 0; i < r; i++)
+            {
+                Red red = new Red();
+                red.ID_reda = maxr + i+1;
+                red.Zona_ID_zone = zona.ID_zone;
+                red.Zona_Sala_ID_sale = idsale;
+                db.Reds.Add(red);
+                db.SaveChanges();
+                for (int j=0; j<kolona; j++)
+                {
+                Sjediste sjed= new Sjediste();
+                if (maxr == 0) { sjed.ID_sjedista = i * kolona + j+1; }
+                else { sjed.ID_sjedista = maxs + i * kolona + j+1; }
+                sjed.Red_ID_reda = red.ID_reda;
+                sjed.Red_Zona_ID_zone = zona.ID_zone;
+                sjed.Red_Zona_Sala_ID_sale = idsale;
+                db.Sjedistes.Add(sjed);
+                db.SaveChanges();
+                }
+            }
+              
 
-        /*       [HttpGet]
-       public ActionResult CreateGlumac()
-       {
-           return View();
-       }
-       [HttpPost]
-       public ActionResult CreateGlumac(Glumac glumac)
-       {
-
-           ModelState.Remove("ID_glumca");
-           if (ModelState.IsValid)
-           {
-               glumac.ID_glumca = db.Glumacs.Count() + 1; //TODO ovo treba srediti
-               db.Glumacs.Add(glumac);
-               db.SaveChanges();
-               return RedirectToAction("Index");
-           }
-           return RedirectToAction("Index");
-       }
-
-
-       [HttpGet]
-       public ActionResult CreateReditelj()
-       {
-           return View();
-       }
-       [HttpPost]
-       public ActionResult CreateReditelj(Reditelj reditelj)
-       {
-
-           ModelState.Remove("ID_reditelja");
-           if (ModelState.IsValid)
-           {
-               reditelj.ID_reditelja = db.Rediteljs.Count() + 1; //TODO ovo treba srediti
-               db.Rediteljs.Add(reditelj);
-               db.SaveChanges();
-               return RedirectToAction("Index");
-           }
-           return RedirectToAction("Index");
-       }
-       [HttpGet]
-       public ActionResult CreateOrganizator()
-       {
-           return View();
-       }
-       [HttpPost]
-       public ActionResult CreateOrganizator(Organizator organizator)
-       {
-
-           ModelState.Remove("ID_organizatora");
-           if (ModelState.IsValid)
-           {
-               organizator.ID_organizatora = db.Organizators.Count() + 1; //TODO ovo treba srediti
-               db.Organizators.Add(organizator);
-               db.SaveChanges();
-               return RedirectToAction("Index");
-           }
-           return RedirectToAction("Index");
-       }
-      */
-
+            return RedirectToAction("DetaljiSala", new {id=idsale });
+        }
     }
 }
 

@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -253,6 +254,7 @@
     <Compile Include="ViewModel\ProfilBiletara.cs" />
     <Compile Include="ViewModel\ProfilKorisnika.cs" />
     <Compile Include="ViewModel\RezervisanaIzvedba.cs" />
+    <Compile Include="ViewModel\ZonaUSali.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -360,9 +362,6 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
-    <Content Include="Views\Admin\Details.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Biletar\Index.cshtml" />
     <Content Include="Views\Gledalac\Index.cshtml" />
@@ -373,16 +372,13 @@
     <Content Include="Views\Admin\CreateGlumac.cshtml" />
     <Content Include="Views\Admin\CreateOrganizator.cshtml" />
     <Content Include="Views\Admin\UbaciGlumce.cshtml" />
-    <Content Include="Views\Biletar\Details.cshtml" />
     <Content Include="Views\Admin\DodajCjenovnik.cshtml" />
     <Content Include="Views\Admin\DetaljiSala.cshtml" />
     <Content Include="Views\Gledalac\RezervisiIzvedba.cshtml" />
     <Content Include="Views\Gledalac\RecenzujIzvedba.cshtml" />
     <Content Include="Views\Biletar\PregledIzvedba.cshtml" />
     <Content Include="Views\Admin\CreateReditelj.cshtml" />
-    <Content Include="Views\Admin\UbaciReditelje.cshtml" />
     <Content Include="Views\Gledalac\PregledIzvedba.cshtml" />
-    <Content Include="Views\Gledalac\OtkaziRezervaciju.cshtml" />
     <Content Include="Views\Gledalac\IzmeniRecenzijuIzvedba.cshtml" />
     <Content Include="Views\Gledalac\EditProfil.cshtml" />
     <Content Include="Views\Biletar\EditProfil.cshtml" />
@@ -391,6 +387,15 @@
     <Content Include="Views\Biletar\IstorijaRez.cshtml" />
     <Content Include="Views\Biletar\GrafikRezervacija.cshtml" />
     <Content Include="Views\Biletar\GrafikProdaja.cshtml" />
+    <Content Include="Views\Admin\CreateZona.cshtml" />
+    <Content Include="Views\Admin\CreateSala.cshtml" />
+    <Content Include="Views\Gledalac\RezervacijaPomoc.cshtml" />
+    <Content Include="Views\Gledalac\OtkazivanjePomoc.cshtml" />
+    <Content Include="Views\Gledalac\OcjenjivanjePomoc.cshtml" />
+    <Content Include="Views\Gledalac\PromjenaLozPomoc.cshtml" />
+    <Content Include="Views\Home\PregledIzvedba.cshtml" />
+    <Content Include="Views\Gledalac\PregledCjenovnika.cshtml" />
+    <Content Include="Views\Gledalac\Uspjeh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

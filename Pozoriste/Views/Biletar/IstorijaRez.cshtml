@@ -10,10 +10,10 @@
 <ul class="nav nav-tabs">
     <li class="active">
 
-        <a href="#tab_1" data-toggle="tab">Istorija rezervacija</a>
+        <a href="#tab_1" data-toggle="tab">Rezervacije</a>
     </li>
     <li>
-        <a href="#tab_2" data-toggle="tab">Istorija prodaje</a>
+        <a href="#tab_2" data-toggle="tab">Prodate karte</a>
     </li>
 
 </ul>
@@ -85,7 +85,7 @@
 
 
         <p>
-            @Html.ActionLink("Broj Rezervisanih karata po predstavi", "GrafikRezervacija")
+            @Html.ActionLink("Broj Rezervisanih karata po predstavi", "GrafikRezervacija", new { pocDatum = @ViewBag.pocDatum, zavDatum = @ViewBag.zavDatum })
         </p>
     </div>
 
@@ -144,7 +144,7 @@
             </table>
 
             <p>
-                @Html.ActionLink("Broj prodatih karata po predstavi", "GrafikProdaja")
+                @Html.ActionLink("Broj prodatih karata po predstavi", "GrafikProdaja", new {pocDatum=@ViewBag.pocDatum, zavDatum=@ViewBag.zavDatum })
             </p>
 </div>
 </div>

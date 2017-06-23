@@ -4,19 +4,17 @@
     ViewBag.Title = "RecenzujIzvedba";
 }
 
-<h2>Recenzuj Izvedbu</h2>
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Recenzija</h4>
+        <h1>Recenzija</h1>
         <hr />
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ocjena, new { @class = "control-label col-md-2" })
+            @Html.Label("Ocjena", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ocjena)
                 @Html.ValidationMessageFor(model => model.ocjena)
@@ -24,21 +22,21 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.komentar, new { @class = "control-label col-md-2" })
+            @Html.Label("Komentar", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.komentar)
+                @Html.TextAreaFor(model => model.komentar, 5, 20, null)
                 @Html.ValidationMessageFor(model => model.komentar)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Sačuvaj" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Vrati se nazad", "Index")
 </div>

@@ -55,7 +55,7 @@ namespace Pozoriste.Controllers
                 }
                 //izvedbe koje ce se odigrati u narednih 7 dana
                 profil.izvedbeS = new List<Izvedba>();
-                var izvedbeSLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= sedamDana).Select(x => x.ID_izvedbe).ToList();
+                var izvedbeSLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= sedamDana).Where(x => x.Repertoar_Datum >= danas).Select(x => x.ID_izvedbe).ToList();
                 foreach (var izvedba in izvedbeSLista)
                 {
 
@@ -63,7 +63,7 @@ namespace Pozoriste.Controllers
                 }
                 //izvedbe koje ce se odigrati u narednih mjesec dana
                 profil.izvedbeM = new List<Izvedba>();
-                var izvedbeMLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= mjesecDana).Select(x => x.ID_izvedbe).ToList();
+                var izvedbeMLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= mjesecDana).Where(x => x.Repertoar_Datum >= danas).Select(x => x.ID_izvedbe).ToList();
                 foreach (var izvedba in izvedbeMLista)
                 {
 
@@ -71,6 +71,29 @@ namespace Pozoriste.Controllers
                 }
                 return View(profil);
             }
+        }
+
+        public ActionResult PregledIzvedba(int id)
+        {
+            Izvedba izvedba = db.Izvedbas.Find(id);
+            Predstava predstava = db.Predstavas.Where(x => x.ID_Predstave == izvedba.Predstava_ID_Predstave).Single();
+            List<Recenzija> listaRecenzija = db.Recenzijas.Where(x => x.Predstava_ID_Predstave == izvedba.Predstava_ID_Predstave).ToList();
+            double prosjecna_ocjena = 0;
+            int brojac = 0;
+            int ukupno = 0;
+            foreach (var item in listaRecenzija)
+            {
+                ukupno += item.ocjena;
+                brojac++;
+            }
+            if (ukupno > 0)
+            {
+                prosjecna_ocjena = ukupno / (double)brojac;
+            }
+            ViewBag.prosjecna = prosjecna_ocjena;
+            ViewBag.listaRecenzija = listaRecenzija;
+
+            return View(predstava);
         }
 
 

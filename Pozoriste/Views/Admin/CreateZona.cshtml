@@ -1,0 +1,56 @@
+﻿@model Pozoriste.Models.Zona
+
+@{
+    ViewBag.Title = "CreateZona";
+}
+
+<br>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Zona</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+@Html.HiddenFor(x=>x.Sala_ID_sale)
+        @Html.HiddenFor(x=>x.ID_zone)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Naziv_zone, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Naziv_zone)
+                @Html.ValidationMessageFor(model => model.Naziv_zone)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.Label("Broj redova", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input id="redova" type="text" name="redova">
+            </div>
+        </div>
+            @if (@ViewBag.brojzona == 0)
+{
+
+    <div class="form-group">
+        @Html.Label("Broj sjedišta", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input id="sjedista" type="text" name="sjedista">
+        </div>
+    </div>
+}
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Dodaj" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Vrati se nazad", "Index")
+</div>

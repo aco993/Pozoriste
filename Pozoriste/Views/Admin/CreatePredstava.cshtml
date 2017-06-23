@@ -4,7 +4,7 @@
     ViewBag.Title = "CreatePredstava";
 }
 
-<h2>CreatePredstava</h2>
+
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new {@enctype="multipart/form-data" }))
 {
@@ -12,7 +12,7 @@
         @Html.ValidationSummary(true) 
     
     <div class="form-horizontal">
-        <h4>Predstava</h4>
+        <h1>Predstava</h1>
         <hr />
         
 
@@ -25,16 +25,6 @@
                 @Html.TextBoxFor(model => model.Naziv_Predstave, new { style = "width:200px" })
                 @Html.ValidationMessageFor(model => model.Naziv_Predstave)
             </div>
-        </div>
-
-          
-        <div class="form-group">
-            @Html.Label("Slika", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-               
-                    @Html.TextBoxFor(model => model.File, new { type = "file" })
-
-                </div>
         </div>
 
         <div class="form-group">
@@ -69,6 +59,16 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            @Html.Label("Slika", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <input type="file" name="file" id="file" /><br>
+                <img id="blah" src="#" alt="Slika" width="100" height="100" />
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Dodaj" class="btn btn-default" />
@@ -81,3 +81,20 @@
     @Html.ActionLink("Vrati se nazad", "Index")
 </div>
 
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file").change(function () {
+        readURL(this);
+    });
+    </script>

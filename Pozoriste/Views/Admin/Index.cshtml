@@ -4,13 +4,18 @@
     ViewBag.Title = "Početna stranica administratora";
 }
 
+<link href="@Url.Content("~/Content/themes/base/minified/jquery-ui.min.css")" rel="stylesheet" />
+<!-- Required jQuery and jQuery UI Javascript references -->
+<script src="@Url.Content("~/Scripts/jquery-1.12.4.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
+
 <style type="text/css">
     a:hover {
         cursor: pointer;
     }
 </style>
 
-<h2>Početna stranica administratora</h2>
+<h1>Početna stranica administratora</h1>
 
 <ul class="nav nav-tabs">
 
@@ -26,6 +31,9 @@
 
     <li>
         <a href="#tab_1" data-toggle="tab">Sale</a>
+    </li>
+    <li>
+        <a href="#tab_8" data-toggle="tab">Izvještaj</a>
     </li>
 </ul>
 
@@ -153,9 +161,14 @@
                             <td>
                                 <a id="deleteIzvedba" class="deleteIzvedba" data-target="#basic" data-toggle="modal" data-id="@item.ID_izvedbe"><font color="F6855E"><strong>Obriši</strong></font></a>
                             </td>
-                            <td>
+                            @if(item.Cjenovniks.Where(x=>x.Izvedba_ID_izvedbe==item.ID_izvedbe).Count()==0)
+                            { <td>
                                 @Html.ActionLink("Dodaj cjenovnik", "DodajCjenovnik", new { id = item.ID_izvedbe })
-                            </td>
+                            </td>}
+                                 else
+                                                             { <td>
+                                @Html.ActionLink("Ažuriraj cjenovnik", "DodajCjenovnik", new { id = item.ID_izvedbe })
+                            </td>}
                         </tr>
                         }
 
@@ -213,9 +226,16 @@
                             <td>
                                 <a id="deleteIzvedba" class="deleteIzvedba" data-target="#basic" data-toggle="modal" data-id="@item.ID_izvedbe"><font color="F6855E"><strong>Obriši</strong></font></a>
                             </td>
+                            @if (item.Cjenovniks.Where(x => x.Izvedba_ID_izvedbe == item.ID_izvedbe).Count() == 0)
+                            {
                             <td>
                                 @Html.ActionLink("Dodaj cjenovnik", "DodajCjenovnik", new { id = item.ID_izvedbe })
-                            </td>
+                            </td>}
+                            else
+                            {
+                            <td>
+                                @Html.ActionLink("Ažuriraj cjenovnik", "DodajCjenovnik", new { id = item.ID_izvedbe })
+                            </td>}
                         </tr>
                         }
 
@@ -271,9 +291,16 @@
                             <td>
                                 <a id="deleteIzvedba" class="deleteIzvedba" data-target="#basic" data-toggle="modal" data-id="@item.ID_izvedbe"><font color="F6855E"><strong>Obriši</strong></font></a>
                             </td>
+                            @if (item.Cjenovniks.Where(x => x.Izvedba_ID_izvedbe == item.ID_izvedbe).Count() == 0)
+                            {
                             <td>
                                 @Html.ActionLink("Dodaj cjenovnik", "DodajCjenovnik", new { id = item.ID_izvedbe })
-                            </td>
+                            </td>}
+                            else
+                            {
+                            <td>
+                                @Html.ActionLink("Ažuriraj cjenovnik", "DodajCjenovnik", new { id = item.ID_izvedbe })
+                            </td>}
                         </tr>
                         }
 
@@ -493,7 +520,30 @@
                 <p>   @Html.ActionLink("Dodaj", "CreateSala", new { /* id=Model.PrimaryKey */ }) </p>
             </fieldset>
         </div>
+    <div class="tab-pane fade" id="tab_8">
+        <br>
+
+        @using (Html.BeginForm("IstorijaRez", "Biletar"))
+        {
+            <dt>
+                Početni interval
+            </dt>
+            <dd>
+                <input id="account" type="text" name="poc" class="date-picker" />
+            </dd>
+            <dt>
+                Završni interval
+            </dt>
+            <dd>
+                <input id="account2" type="text" name="zav" class="date-picker" />
+            </dd>
+            <br>
+            <input id="Search" type="submit" class="b" value="Primijeni" />
+        }
+
+    </div>
         </div>
+    </div>
 
 
 <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
@@ -508,7 +558,7 @@
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" type="button" class="btn btn-default">Odustani</button>
-                <button id="btnContinueDelete" type="button" class="btn btn-primary">Obiši</button>
+                <button id="btnContinueDelete" type="button" class="btn btn-primary">Obriši</button>
             </div>
         </div>
     </div>
@@ -536,4 +586,13 @@
     });
 </script>
 
-@Html.ActionLink("Istorija rezervacija i prodaje karata", "IstorijaRez","Biletar") 
+<script type="text/javascript">
+    $(function () {
+        // This will make every element with the class "date-picker" into a DatePicker element
+        $('.date-picker').datepicker().on('click', function (ev) {
+            $('.date-picker').css("z-index", "999999999");
+        }).data('date-picker');
+
+    })
+</script>
+

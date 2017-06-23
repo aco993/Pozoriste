@@ -12,6 +12,8 @@ namespace Pozoriste.ViewModel
         public String naziv_predstave { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public String idkorisnika { get; set; }
+        public String naziv_rezervacije { get; set; }
         public DateTime datum_izvedbe { get; set; }
         public TimeSpan vrijeme_izvodjenja { get; set; }
         public String naziv_sale { get; set; }

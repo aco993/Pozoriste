@@ -1,0 +1,44 @@
+﻿@model List<Pozoriste.Models.Cijena_zone>
+
+@{
+    ViewBag.Title = "PregledCjenovnika";
+}
+
+<h2>Pregled Cjenovnika</h2>
+
+<div>
+   
+     
+            
+        <table>
+
+            <tr>
+                <th>
+                    Naziv zone
+                </th>
+
+
+                <th>Cijena</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Zona.Naziv_zone)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => item.Cijena)
+                </td>
+                    </tr>
+            }
+        </table>
+
+                 
+   
+</div>
+<p>
+    
+    @Html.ActionLink("Vrati se nazad", "RezervisiIzvedba", new {id=ViewBag.id })
+</p>

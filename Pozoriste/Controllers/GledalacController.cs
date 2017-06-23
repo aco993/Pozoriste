@@ -25,7 +25,7 @@ namespace Pozoriste.Controllers
             //umjesto izvedbi join izvedbe i rezervacije, RezervisanaIzvedba ViewModel srediti itd
             List<Pozoriste.ViewModel.RezervisanaIzvedba> rezervisaneIzvedbe = new List<Pozoriste.ViewModel.RezervisanaIzvedba>();
 
-            var rezervacije = db.Rezervacijas.Where(x => x.Gledalac_ID_korisnika == User.Identity.Name).ToList();
+            var rezervacije = db.Rezervacijas.Where(x => x.Gledalac_ID_korisnika == User.Identity.Name).OrderBy(x => x.Izvedba.Repertoar_Datum).ToList();
             profil.rezervacije = new List<Rezervacija>();
             foreach (var rez in rezervacije)
             {
@@ -53,7 +53,7 @@ namespace Pozoriste.Controllers
             DateTime mjesecDana = danas.AddDays(30);
             //izvedbe na danasnjem repertoaru
             profil.izvedbeD = new List<Izvedba>();
-            var izvedbeDLista = db.Izvedbas.Where(x => x.Repertoar_Datum == danas).Select(x => x.ID_izvedbe).ToList();
+            var izvedbeDLista = db.Izvedbas.Where(x => x.Repertoar_Datum == danas).OrderBy(x => x.Vrijeme_izvodjenja).Select(x => x.ID_izvedbe).ToList();
             if (izvedbeDLista.Count > 0)
             {
                 foreach (var izvedba in izvedbeDLista)
@@ -64,7 +64,7 @@ namespace Pozoriste.Controllers
             }
             //izvedbe koje ce se odigrati u narednih 7 dana
             profil.izvedbeS = new List<Izvedba>();
-            var izvedbeSLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= sedamDana).Where(x => x.Repertoar_Datum >= danas).Select(x => x.ID_izvedbe).ToList();
+            var izvedbeSLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= sedamDana).Where(x => x.Repertoar_Datum >= danas).OrderBy(x=>x.Repertoar_Datum).Select(x => x.ID_izvedbe).ToList();
             foreach (var izvedba in izvedbeSLista)
             {
 
@@ -72,7 +72,7 @@ namespace Pozoriste.Controllers
             }
             //izvedbe koje ce se odigrati u narednih mjesec dana
             profil.izvedbeM = new List<Izvedba>();
-            var izvedbeMLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= mjesecDana).Where(x => x.Repertoar_Datum >= danas).Select(x => x.ID_izvedbe).ToList();
+            var izvedbeMLista = db.Izvedbas.Where(x => x.Repertoar_Datum <= mjesecDana).Where(x => x.Repertoar_Datum >= danas).OrderBy(x => x.Repertoar_Datum).Select(x => x.ID_izvedbe).ToList();
             foreach (var izvedba in izvedbeMLista)
             {
 
@@ -83,60 +83,6 @@ namespace Pozoriste.Controllers
             return View(profil);
         }
 
-        //
-        // GET: /Gledalac/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /Gledalac/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Gledalac/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Gledalac/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Gledalac/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         [HttpGet]
         public ActionResult EditProfil()
         {
@@ -160,39 +106,15 @@ namespace Pozoriste.Controllers
             return RedirectToAction("Index");
         }
 
-        //
-        // GET: /Gledalac/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Gledalac/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         [HttpGet]
         public ActionResult RezervisiIzvedba(int id)
         {
             Izvedba izvedba = db.Izvedbas.Find(id);
 
+            Session["idizvedbe"] = id;
             Sala sala = db.Salas.Where(x => x.ID_sale == izvedba.Sala_ID_sale).Single();
-            //improvizovani dio, vazi samo za jednu zonu, ako ima vise zona ne moze se primijeniti
-            ViewBag.brojSjedista = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == sala.ID_sale).Count();
-            ViewBag.brojRedova = db.Reds.Where(x => x.Zona_Sala_ID_sale == sala.ID_sale).Count();
-            List<Zona> listaZona = db.Zonas.Where(x => x.Sala_ID_sale == sala.ID_sale).ToList();
+            Session["sala"] = sala.ID_sale;
+            ViewBag.id = id;
 
             var svaRezervisana = (from x in db.Rezervacijas where x.Izvedba_ID_izvedbe == id select x.Sjediste_ID_sjedista);
             var svaSjedista = (from x in db.Sjedistes where x.Red_Zona_Sala_ID_sale == sala.ID_sale select x.ID_sjedista);
@@ -205,9 +127,25 @@ namespace Pozoriste.Controllers
                 listaSlobodnih.Add(num);
             }
             ViewBag.ListaSlobodnih = listaSlobodnih;
-            ViewBag.izvedba = izvedba.ID_izvedbe;
-            Session["idizvedbe"] = id;
-            return View(listaZona);
+            ViewBag.brojSjedista = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == id).Count();
+            ViewBag.brojRedova = db.Reds.Where(x => x.Zona_Sala_ID_sale == id).Count();
+            int brojSjedista = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == sala.ID_sale).Count();
+            int brojRedova = db.Reds.Where(x => x.Zona_Sala_ID_sale == sala.ID_sale).Count();
+            List<Zona> listaZona = db.Zonas.Where(x => x.Sala_ID_sale == sala.ID_sale).ToList();
+            List<ViewModel.ZonaUSali> listaZonaUSali = new List<ViewModel.ZonaUSali>();
+            foreach (var item in listaZona)
+            {
+                ViewModel.ZonaUSali zona = new ViewModel.ZonaUSali();
+                zona.Sala_ID_sale = sala.ID_sale;
+                zona.brojSjedista = db.Sjedistes.Where(x => x.Red_Zona_Sala_ID_sale == sala.ID_sale).Where(x => x.Red_Zona_ID_zone == item.ID_zone).Count();
+                zona.brojRedova = db.Reds.Where(x => x.Zona_Sala_ID_sale == sala.ID_sale).Where(x => x.Zona_ID_zone == item.ID_zone).Count();
+                zona.Naziv_zone = item.Naziv_zone;
+                zona.ID_zone = item.ID_zone;
+                zona.cijena = item.Cijena_zone.Select(x => x.Cijena).FirstOrDefault();
+                listaZonaUSali.Add(zona);
+            }
+            return View(listaZonaUSali);
+         
         }
 
         public ActionResult RezervisiIzvedbaPost(int id, int id_izvedbe)
@@ -237,30 +175,7 @@ namespace Pozoriste.Controllers
             }
             return RedirectToAction("Index", "Biletar"); //new idbiletara
         }
-        /*       [HttpGet]
-               public ActionResult OtkaziRezervaciju(int id) {
-                String korisnik= User.Identity.Name;
-                   Rezervacija rez=db.Rezervacijas.Where(x=>x.Izvedba_ID_izvedbe==id).Where(x=>x.Gledalac_ID_korisnika==korisnik).Single();
-                   return View(rez);
-               }
-              [ActionName("OtkaziRezervaciju")]
-               [HttpPost]
-               public ActionResult OtkaziRezervacijuPost(Rezervacija rez)
-               {
-                   try
-                   {
-    
-                       db.Rezervacijas.Remove(rez);
-
-                       return RedirectToAction("Index");
-                   }
-                   catch
-                   {
-                       return View();
-                   }
-               }
-        */
-
+ 
         [HttpGet]
         public ActionResult RecenzujIzvedba(int id)
         {
@@ -332,7 +247,7 @@ namespace Pozoriste.Controllers
                 db.Rezervacijas.Remove(rez);
                 db.SaveChanges();
             }
-            return RedirectToAction("PregledIzvedba", new { id = id });
+            return RedirectToAction("Index", new { id = id });
         }
         public ActionResult Obrada(int[] chk, string submitButton)
         {
@@ -358,10 +273,34 @@ namespace Pozoriste.Controllers
                     db.SaveChanges();
 
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Uspjeh");
             }
             else
                 return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Uspjeh() {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("Uspjeh")]
+        public ActionResult UspjehPost()
+        {
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult PregledCjenovnika(int id) {
+            int cj = db.Cjenovniks.Where(x => x.Izvedba_ID_izvedbe == id).Max(x => x.id_cjenovnika);
+            List<Cijena_zone> listaCijena = db.Cijena_zone.Where(x => x.Cjenovnik_id_cjenovnika == cj).ToList();
+            ViewBag.id = id;
+            return View(listaCijena);
+        }
+        //POMOC
+        public ActionResult RezervacijaPomoc() {return View();}
+          public ActionResult  OtkazivanjePomoc() {return View();}
+          public ActionResult  OcjenjivanjePomoc() {return View();}
+             public ActionResult   PromjenaLozPomoc() {return View();}
     }
 }

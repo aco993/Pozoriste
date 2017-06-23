@@ -1,4 +1,4 @@
-﻿@model Tuple<List<Pozoriste.Models.Zona>,List<Pozoriste.Models.Rezervacija>,List<Pozoriste.Models.Sjediste>>
+﻿@model Tuple<List<Pozoriste.ViewModel.ZonaUSali>,List<Pozoriste.Models.Rezervacija>,List<Pozoriste.Models.Sjediste>,List<Pozoriste.ViewModel.RezervisanaIzvedba>>
 
 
 
@@ -11,7 +11,7 @@
 
 @{
 
-    int kolona = @ViewBag.BrojSjedista / @ViewBag.BrojRedova;
+    int k = 0;
 }
 
 
@@ -30,22 +30,36 @@
         <br>
         <form action="/Biletar/ObradaRezervacije" method="post">
             <div class="btn-group" data-toggle="buttons">
-                @for (var m = 0; m < kolona; m++)
+@foreach (var item in Model.Item1)
+        {
+
+            int kolonica = 0;
+            if (item.brojRedova == 0)
+            {
+                kolonica = 0;
+            }
+            else
+            {
+                kolonica = item.brojSjedista / item.brojRedova;
+            }
+    <br>
+    <h3> @item.Naziv_zone </h3>
+                for (var m = 0; m < @item.brojRedova; m++)
                 {
                     <tr>
-                        @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+                        @for (var n = 1; n <= kolonica; n++)
                         {
 
-                            if ((m * @ViewBag.BrojRedova + n) >= 10)
+                            if ((m * kolonica + n + k) >= 10)
                             {
 
-                                if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
+                                if (ViewBag.listaSlobodnih.Contains((m * kolonica + n + k)))
                                 {
-                                    if (!ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
+                                    if (!ViewBag.listaNeprodatih.Contains((m * kolonica + n + k)))
                                     {
                                         <td>
                                             <label class="btn btn-primary" style="width:80px" disabled>
-                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+                                                <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> @(m * kolonica + n + k)
 
                                             </label>
                                         </td>
@@ -53,8 +67,8 @@
                                     else
                                     {
                                         <td>
-                                            <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px">
-                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
+                                            <label class="btn btn-primary" id="@(m * kolonica + n + k)" style="width:80px">
+                                                <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk">  @(m * kolonica + n + k)
 
                                             </label>
                                         </td>
@@ -64,7 +78,7 @@
                                 {
                                     <td>
                                         <label class="btn btn-primary" style="width:80px" disabled>
-                                            <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+                                            <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> @(m * kolonica + n + k)
 
                                         </label>
                                     </td>
@@ -72,13 +86,13 @@
                             }
                             else
                             {
-                                if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
+                                if (ViewBag.listaSlobodnih.Contains((m * kolonica + n + k)))
                                 {
-                                    if (!ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
+                                    if (!ViewBag.listaNeprodatih.Contains((m * kolonica + n + k)))
                                     {
                                         <td>
                                             <label class="btn btn-primary" style="width:80px" disabled>
-                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+                                                <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> @(m * kolonica + n + k)
 
                                             </label>
                                         </td>
@@ -86,8 +100,8 @@
                                     else
                                     {
                                         <td>
-                                            <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px">
-                                                <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
+                                            <label class="btn btn-primary" id="@(m * kolonica + n + k)" style="width:80px">
+                                                <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk">  @(m * kolonica + n + k)
 
                                             </label>
                                         </td>
@@ -98,7 +112,7 @@
                                 {
                                     <td>
                                         <label class="btn btn-primary" style="width:80px" disabled>
-                                            <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+                                            <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> @(m * kolonica + n + k)
 
                                         </label>
                                     </td>
@@ -109,9 +123,26 @@
                         <p> </p>
                     </tr>
 
+                                }
 
-                }
-            </div>
+            k = k + @item.brojSjedista;
+
+        }
+        <br>
+              
+    </div>
+            <br>
+            <p>
+            <dt>
+                Naziv rezervacije
+            </dt>
+            <dd>
+                <input id="naziv_Rezervacije" type="text" name="naziv_Rezervacije" />
+            </dd>
+                </p>
+            <h2>Broj rezervisanih mjesta: <div id="output">0</div> </h2>
+            <h2>Ukupna cijena: <div id="output2">0</div> </h2>
+
                 <p>
                     <input type="submit" name="submitButton" value="Rezerviši" />  <br>
 
@@ -134,9 +165,7 @@
                             <th>
                                 Sjedište
                             </th>
-                            <th>
-                                Red
-                            </th>
+
 
                             <th></th>
                             <th></th>
@@ -155,11 +184,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Sjediste_ID_sjedista)
                                 </td>
+
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Sjediste_Red_ID_reda)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Prodaja", "ProdajaIzvedba", new { id = item.Izvedba_ID_izvedbe, id2 = item.Sjediste_ID_sjedista })
+                                    @Html.ActionLink("Prodaja", "ProdajaIzvedba", new { id = item.Izvedba_ID_izvedbe, id2 = item.naziv_rezervacije })
                                 </td>
                                 <td>
                                     <a id="deleteItem" class="deleteItem" data-target="#basic" data-toggle="modal" data-id="@item.Izvedba_ID_izvedbe" data-id2="@item.Sjediste_ID_sjedista"><font color="F6855E"><strong>Otkaži</strong></font></a>
@@ -170,74 +197,127 @@
 
                         }
 
+                        @foreach (var item in Model.Item4)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idkorisnika)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.naziv_rezervacije)
+                                </td>
+                                <td>
+                                    @foreach (var mesto in item.mesta)
+                                    {
+                                        @Html.DisplayFor(modelItem => mesto) <span>, </span>  }
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("Prodaja", "ProdajaIzvedba", new { id = item.id_izvedbe, id2=item.idkorisnika })
+                                </td>
+                                <td>
+                                    <a id="deleteItem" class="deleteItem" data-target="#basic" data-toggle="modal" data-id="@item.id_izvedbe" data-id2="@item.idkorisnika"><font color="F6855E"><strong>Otkaži</strong></font></a>
+
+                                </td>
+
+                            </tr>
+
+                        }
+
                     </table>
 
                 </fieldset>
+
+
             </div>
     <div class="tab-pane fade" id="tab_2">
+
         <br>
         <form action="/Biletar/ObradaProdaje" method="post">
-            <div class="btn-group" data-toggle="buttons">
-                @for (var m = 0; m < kolona; m++)
+    <div class="btn-group" data-toggle="buttons">
+        @{ k = 0;}
+        @foreach (var item in Model.Item1)
+        {
+
+            int kolonica = 0;
+            if (item.brojRedova == 0)
+            {
+                kolonica = 0;
+            }
+            else
+            {
+                kolonica = item.brojSjedista / item.brojRedova;
+            }
+            <br>
+            <h3> @item.Naziv_zone </h3>
+
+
+            for (var m = 0; m < @item.brojRedova; m++)
+{
+    <tr>
+        @for (var n = 1; n <= kolonica; n++)
+        {
+
+            if ((m * kolonica + n + k) >= 10)
+            {
+                if (ViewBag.listaNeprodatih.Contains((m * kolonica + n + k)))
                 {
-                    <tr>
-                        @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
-                        {
+                    <td>
+                        <label class="btn btn-primary" id="@(m * kolonica + n + k)" style="width:80px">
+                            <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk">  @(m * kolonica + n + k)
 
-                            if ((m * @ViewBag.BrojRedova + n) >= 10)
-                            {
-                                if (ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
-                                {
-                                        <td>
-                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px" >
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
-
-                                </label>
-                            </td>
-                                }
-                                else
-                                {
-                              <td>
-                                <label class="btn btn-primary" style="width:80px" disabled >
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
-
-                                </label>
-                            </td>
-                                }
-                            }
-                            else
-                            {
-                                if (ViewBag.listaNeprodatih.Contains((m * @ViewBag.BrojRedova + n)))
-                                {
-                                        <td>
-                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px" >
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
-
-                                </label>
-                            </td>
-                                }
-                                else
-                                {
-                             <td>
-                                <label class="btn btn-primary" style="width:80px" disabled >
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
-
-                                </label>
-                            </td>
-                                }
-                            }
-
-                        }
-                        <p> </p>
-                    </tr>
-                
-
+                        </label>
+                    </td>
                 }
-                </div>
-            <p>
-                <input type="submit" name="submitButton" value="Prodaj" />  <br>
+                else
+                {
+                    <td>
+                        <label class="btn btn-primary" style="width:80px" disabled>
+                            <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> @(m * kolonica + n + k)
 
-            </p>
+                        </label>
+                    </td>
+                }
+            }
+            else
+            {
+                if (ViewBag.listaNeprodatih.Contains((m * kolonica + n + k)))
+                {
+                    <td>
+                        <label class="btn btn-primary" id="@(m * kolonica + n + k)" style="width:80px">
+                            <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk">  @(m * kolonica + n + k)
+
+                        </label>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <label class="btn btn-primary" style="width:80px" disabled>
+                            <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> @(m * kolonica + n + k)
+
+                        </label>
+                    </td>
+                }
+            }
+
+        }
+        <p> </p>
+    </tr>
+
+}
+
+k = k + @item.brojSjedista;
+
+        }
+                    <br>
+            </div>
+            <h2>Broj karata: <div id="output3">0</div> </h2>
+            <h2>Ukupna cijena: <div id="output4">0</div> </h2>
+                <p>
+                    <input type="submit" name="submitButton" value="Prodaj" />  <br>
+                </p>
             </form>
 
                 <fieldset>
@@ -253,8 +333,6 @@
                                 Red
                             </th>
 
-                            <th></th>
-                            <th></th>
                         </tr>
 
                         @foreach (var item in Model.Item3)
@@ -305,5 +383,34 @@
         $('#btnContinueDelete').click(function () {
            window.location = "/Biletar/PonistiRezervacija/" + item_to_delete+"00"+item_to_delete2; //improvizovano
            
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.checkbox').change(function () {
+                var checkedTotal = {};
+                $(".checkbox").each(function (index, el) {
+
+                    var id = $(el).attr("id");
+                    if ($(el).prop("checked")) {
+                        if (!checkedTotal[id]) {
+                            checkedTotal[id] = 1;
+                        }
+                        else {
+                            checkedTotal[id] = checkedTotal[id] + 1;
+                        }
+                    }
+                });
+                var q = 0;
+                for (var p in checkedTotal) {
+                    q = parseInt(q) + parseInt(p * checkedTotal[p]);
+                }
+
+                $('#output').html(function (i, val) { return $('input[type=checkbox]:checked').length });
+                $('#output2').html(function (i, val) { return q });
+                $('#output3').html(function (i, val) { return $('input[type=checkbox]:checked').length });
+                $('#output4').html(function (i, val) { return q });
+            });
         });
     </script>

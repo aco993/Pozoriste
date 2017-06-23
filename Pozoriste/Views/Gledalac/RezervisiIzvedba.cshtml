@@ -1,79 +1,129 @@
-﻿
+﻿@model IEnumerable<Pozoriste.ViewModel.ZonaUSali>
 @{
     ViewBag.Title = "RezervisiIzvedba";
 }
 
 
 @{
-
-    int kolona = @ViewBag.BrojSjedista / @ViewBag.BrojRedova;
+    int k = 0;
 }
 
-    <h2>Rezervacija</h2>
+    <h1>Rezervacija</h1>
+
 <form action="/Gledalac/Obrada" method="post">
     <div class="btn-group" data-toggle="buttons">
-        @for (var m = 0; m < kolona; m++)
+        @foreach (var item in Model)
         {
-            <tr>
-                @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
-                {
+          
+            int kolonica = 0;
+            if (item.brojRedova == 0)
+            {
+                kolonica = 0;
+            }
+            else
+            {
+                kolonica = item.brojSjedista / item.brojRedova;
+            }
+            <br>
+            <h3> @item.Naziv_zone </h3>
 
-                    if ((m * @ViewBag.BrojRedova + n) >= 10)
+            for (var m = 0; m < @item.brojRedova; m++)
+            {
+                <tr>
+                    @for (var n = 1; n <= kolonica; n++)
                     {
-                        if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
-                        {
-                            <td>
-                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px" >
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  @(m * @ViewBag.BrojRedova + n)
 
-                                </label>
-                            </td>
+                        if ((m * kolonica + n + k) >= 10)
+                        {
+                            if (ViewBag.listaSlobodnih.Contains((m * kolonica + n + k)))
+                            {
+                                <td>
+                                    <label class="btn btn-primary" id="@(m * kolonica + n + k)" style="width:80px">
+                                        <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk" onclick="output++">  @(m * kolonica + n + k)
+
+                                    </label>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <label class="btn btn-primary" style="width:80px" disabled>
+                                        <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> @(m * kolonica + n + k)
+
+                                    </label>
+                                </td>
+                            }
                         }
                         else
                         {
-                            <td>
-                                <label class="btn btn-primary" style="width:80px" disabled >
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> @(m * @ViewBag.BrojRedova + n)
+                            if (ViewBag.listaSlobodnih.Contains((m * kolonica + n + k)))
+                            {
+                                <td>
+                                    <label class="btn btn-primary" id="@(m * kolonica + n + k)" style="width:80px">
+                                        <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk">  0@(m * kolonica + n + k)
 
-                                </label>
-                            </td>
+                                    </label>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <label class="btn btn-primary" style="width:80px" disabled>
+                                        <input type="checkbox" class="checkbox" id="@item.cijena" value="@(m * kolonica + n + k)" name="chk"> 0@(m * kolonica + n + k)
+
+                                    </label>
+                                </td>
+                            }
                         }
+
                     }
-                    else
-                    {
-                        if (ViewBag.listaSlobodnih.Contains((m * @ViewBag.BrojRedova + n)))
-                        {
-                            <td>
-                                <label class="btn btn-primary" id="@(m * @ViewBag.BrojRedova + n)" style="width:80px">
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk">  0@(m * @ViewBag.BrojRedova + n)
+                    <p> </p>
+                </tr>
 
-                                </label>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <label class="btn btn-primary" style="width:80px" disabled >
-                                    <input type="checkbox" id="@(m * @ViewBag.BrojRedova + n)" value="@(m * @ViewBag.BrojRedova + n)" name="chk"> 0@(m * @ViewBag.BrojRedova + n)
+            }
 
-                                </label>
-                            </td>
-                        }
-                    }
-
-                }
-                <p> </p>
-            </tr>
-
+            k = k + @item.brojSjedista;
 
         }
+        <br>
     </div>
+
+    <h2>Broj rezervisanih mjesta: <div id="output">0</div> </h2>
+    <h2>Ukupna cijena: <div id="output2">0</div> </h2>
     <p>
         <input type="submit" name="submitButton" value="Rezerviši" />  <input type="submit" name="submitButton" value="Otkaži" /><br>
-       
-   </p>
-    
+    </p>
 
+</form> 
+
+<script>
+    $(document).ready(function () {
+        $('.checkbox').change(function () {
+            var checkedTotal = {};
+            $(".checkbox").each(function (index, el) {
+
+                var id = $(el).attr("id");
+                if ($(el).prop("checked")) {
+                    if (!checkedTotal[id]) {
+                        checkedTotal[id] = 1;
+                    }
+                    else {
+                        checkedTotal[id] = checkedTotal[id] + 1;
+                    }
+                }
+            });
+            var q=0;
+            for (var p in checkedTotal) {
+                q = parseInt(q) + parseInt(p * checkedTotal[p]);
+            }
+
+            $('#output').html(function (i, val) { return $('input[type=checkbox]:checked').length });
+            $('#output2').html(function (i, val) { return q });
+        });
+    });
+    </script>
+
+@Html.ActionLink("Pregled cjenovnika", "PregledCjenovnika", new { id = ViewBag.id })
 
 
 
