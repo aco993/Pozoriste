@@ -440,7 +440,7 @@ namespace Pozoriste.Controllers
             int cjenovnika = db.Cjenovniks.Count()+1;
             TempData["izvedba"] = id;
             Cjenovnik cjenovnik = new Cjenovnik(cjenovnika, DateTime.Now, izvedba.Repertoar_Datum, izvedba.ID_izvedbe);
-            int stari = db.Cjenovniks.Where(x => x.Izvedba_ID_izvedbe == id).Max(x => x.id_cjenovnika);
+            int stari = db.Cjenovniks.Where(x => x.Izvedba_ID_izvedbe == id).Max(x => x.id_cjenovnika).FirstOrDefault();
             db.SaveChanges();
             TempData["cjenovnik"] = cjenovnik;
             TempData["idcjenovnika"] = cjenovnika;
